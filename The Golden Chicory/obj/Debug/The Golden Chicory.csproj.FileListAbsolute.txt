@@ -1,0 +1,14 @@
+C:\Users\chara\source\repos\L'Endive Dorée\L'Endive Dorée\obj\Debug\L'Endive Dorée.csproj.CoreCompileInputs.cache
+C:\Users\chara\source\repos\L'Endive Dorée\L'Endive Dorée\bin\Debug\L'Endive Dorée.exe.config
+C:\Users\chara\source\repos\L'Endive Dorée\L'Endive Dorée\bin\Debug\L'Endive Dorée.exe
+C:\Users\chara\source\repos\L'Endive Dorée\L'Endive Dorée\bin\Debug\L'Endive Dorée.pdb
+C:\Users\chara\source\repos\L'Endive Dorée\L'Endive Dorée\obj\Debug\L'Endive Dorée.exe
+C:\Users\chara\source\repos\L'Endive Dorée\L'Endive Dorée\obj\Debug\L'Endive Dorée.pdb
+C:\Users\chara\source\repos\L'Endive Dorée\L'Endive Dorée\obj\Debug\L'Endive Dorée.csprojAssemblyReference.cache
+D:\PROJECTS\CSharp\The Golden Chicory\The Golden Chicory\bin\Debug\The Golden Chicory.exe.config
+D:\PROJECTS\CSharp\The Golden Chicory\The Golden Chicory\bin\Debug\The Golden Chicory.exe
+D:\PROJECTS\CSharp\The Golden Chicory\The Golden Chicory\bin\Debug\The Golden Chicory.pdb
+D:\PROJECTS\CSharp\The Golden Chicory\The Golden Chicory\obj\Debug\The Golden Chicory.csprojAssemblyReference.cache
+D:\PROJECTS\CSharp\The Golden Chicory\The Golden Chicory\obj\Debug\The Golden Chicory.csproj.CoreCompileInputs.cache
+D:\PROJECTS\CSharp\The Golden Chicory\The Golden Chicory\obj\Debug\The Golden Chicory.exe
+D:\PROJECTS\CSharp\The Golden Chicory\The Golden Chicory\obj\Debug\The Golden Chicory.pdb
