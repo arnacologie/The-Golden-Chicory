@@ -12,3 +12,10 @@ D:\PROJECTS\CSharp\The Golden Chicory\The Golden Chicory\obj\Debug\The Golden Ch
 D:\PROJECTS\CSharp\The Golden Chicory\The Golden Chicory\obj\Debug\The Golden Chicory.csproj.CoreCompileInputs.cache
 D:\PROJECTS\CSharp\The Golden Chicory\The Golden Chicory\obj\Debug\The Golden Chicory.exe
 D:\PROJECTS\CSharp\The Golden Chicory\The Golden Chicory\obj\Debug\The Golden Chicory.pdb
+D:\PROJECTS\The-Golden-Chicory\The Golden Chicory\bin\Debug\The Golden Chicory.exe.config
+D:\PROJECTS\The-Golden-Chicory\The Golden Chicory\bin\Debug\The Golden Chicory.exe
+D:\PROJECTS\The-Golden-Chicory\The Golden Chicory\bin\Debug\The Golden Chicory.pdb
+D:\PROJECTS\The-Golden-Chicory\The Golden Chicory\obj\Debug\The Golden Chicory.csprojAssemblyReference.cache
+D:\PROJECTS\The-Golden-Chicory\The Golden Chicory\obj\Debug\The Golden Chicory.csproj.CoreCompileInputs.cache
+D:\PROJECTS\The-Golden-Chicory\The Golden Chicory\obj\Debug\The Golden Chicory.exe
+D:\PROJECTS\The-Golden-Chicory\The Golden Chicory\obj\Debug\The Golden Chicory.pdb

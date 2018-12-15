@@ -25,7 +25,7 @@ namespace Characters
             this.y = y;
             name = namePlayer;
             description = "It's the player";
-            symbol = "±";
+            symbol = "o";
             symbolUp = "↑";
             symbolLeft = "←";
             symbolRight = "→";
