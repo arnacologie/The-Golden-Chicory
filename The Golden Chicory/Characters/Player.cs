@@ -19,7 +19,6 @@ namespace Characters
         public string symbolRight { get; set; }
         public string symbolDown { get; set; }
         public Dictionary<string, int[]> closeCases;
-        private List<string> debugList = new List<string>();
 
         public Player(int x, int y)
         {
@@ -135,7 +134,7 @@ namespace Characters
             addValidCloseCase(symbolDown, xCloseCase, yCloseCase, new int[2]);
             foreach (KeyValuePair<string, int[]> item in closeCases)
             {
-                debugList.Add(string.Format("Direction {0} = {1},{2}", item.Key, item.Value[0], item.Value[1]));
+                Stage.debugList.Add(string.Format("Direction {0} = {1},{2}", item.Key, item.Value[0], item.Value[1]));
             }
         }
 
@@ -155,18 +154,18 @@ namespace Characters
         {
             foreach (KeyValuePair<string, int[]> item in closeCases)
             {
-                debugList.Add(string.Format("Direction {0} = {1},{2}", item.Key, item.Value[0], item.Value[1]));
+                Stage.debugList.Add(string.Format("Direction {0} = {1},{2}", item.Key, item.Value[0], item.Value[1]));
             }
         }
 
-        public void printErrors()
+        public void printDebug()
         {
-            Console.WriteLine("Errors");
-            foreach (string debug in debugList)
+            Console.WriteLine("Debug:");
+            foreach (string debug in Stage.debugList)
             {
                 Console.WriteLine(debug);
             }
-            debugList.Clear();
+            Stage.debugList.Clear();
         }
 
         

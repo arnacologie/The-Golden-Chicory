@@ -18,7 +18,9 @@ namespace The_Golden_Chicory
         private CaseFactory caseFactory;
         public StructureFactory structureFactory { get; set; }
         public static Player player { get; set; }
-
+        public static List<string> debugList;
+        public static List<string> interactionAvailable;
+ 
         public static string getFunctionName([CallerMemberName] string caller = null)
         {
             return caller;
@@ -30,6 +32,7 @@ namespace The_Golden_Chicory
             caseFactory = new CaseFactory();
             structureFactory = new StructureFactory();
             player = new Player(0, 0);
+            debugList = new List<string>();
         }
 
         public static Stage getInstance()
@@ -63,6 +66,26 @@ namespace The_Golden_Chicory
         {
             Console.Clear();
             ASCIICasePrinter.printASCIIMap();
+        }
+
+        public static void printDebug()
+        {
+            Console.WriteLine("Debug:");
+            foreach (string debug in debugList)
+            {
+                Console.WriteLine(debug);
+            }
+            debugList.Clear();
+        }
+
+        public static void printInteractionAvailable()
+        {
+            Console.WriteLine("Debug:");
+            foreach (string interactionDetail in interactionAvailable)
+            {
+                Console.WriteLine(interactionDetail);
+            }
+            interactionAvailable.Clear();
         }
     }
 }

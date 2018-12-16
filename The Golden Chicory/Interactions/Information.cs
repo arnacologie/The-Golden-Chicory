@@ -7,13 +7,13 @@ using The_Golden_Chicory;
 
 namespace Interactions
 {
-    public class Open : Interaction
+    class Information : Interaction
     {
-        public Open(Entity interactible) : base(interactible){}
+        public Information(Entity interactible) : base(interactible) { }
 
         public override void trigger(Entity interactor)
         {
-            base.trigger(interactor);
+            
         }
     }
 }

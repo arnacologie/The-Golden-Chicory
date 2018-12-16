@@ -11,16 +11,6 @@ namespace The_Golden_Chicory
         public string description { get; set; }
         public string symbol { get; set; }
         public bool isInteractible { get; set; }
-        public List<Interaction> interaction { get; set; }
-
-        public bool interact(int index)
-        {
-            if (isInteractible)
-            {
-                interaction[index].trigger();
-                return true;
-            }
-            else return false;
-        }
+        public List<Interaction> interactions { get; set; }
     }
 }

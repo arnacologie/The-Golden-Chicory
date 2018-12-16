@@ -3,8 +3,22 @@
 namespace Interactions
 {
     //Decorator
-    public interface Interaction 
+    public abstract class Interaction 
     {
-        void trigger();
+        private Entity interactible;
+        private Entity interactor;
+
+        public Interaction(Entity interactible)
+        {
+            this.interactible = interactible;
+        }
+        public virtual void trigger(Entity interactor)
+        {
+            if (!interactible.isInteractible)
+            {
+                Stage.debugList.Add("I can't do this");
+                return;
+            }
+        }
     }
 }
