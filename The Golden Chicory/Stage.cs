@@ -4,6 +4,7 @@ using Map;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,6 +18,11 @@ namespace The_Golden_Chicory
         private CaseFactory caseFactory;
         public StructureFactory structureFactory { get; set; }
         public static Player player { get; set; }
+
+        public static string getFunctionName([CallerMemberName] string caller = null)
+        {
+            return caller;
+        }
 
         private Stage()
         {
