@@ -8,7 +8,7 @@ namespace Structures
 {
     class Floor : Structure
     {
-        public Floor()
+        public Floor() : base()
         {
             this.name = "Floor";
             this.description = "Hmm, this is the floor...";

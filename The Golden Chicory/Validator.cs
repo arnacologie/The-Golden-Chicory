@@ -23,7 +23,8 @@ namespace The_Golden_Chicory
 
         public static bool isCaseValid(int x, int y)
         {
-            return (x >= 0 && x < Stage.MATRIX_SIZE && y >= 0 && y < Stage.MATRIX_SIZE);
+            return (x >= 0 && x < Stage.MATRIX_SIZE && y >= 0 && y < Stage.MATRIX_SIZE &&
+                Stage.getInstance().MATRIX[x, y].onThis.interactions.Count > 0);
         }
     }
 }

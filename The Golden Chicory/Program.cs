@@ -20,12 +20,12 @@ namespace The_Golden_Chicory
 
             Stage.getInstance().showMATRIX();
             Console.WriteLine(Stage.getInstance().MATRIX[0, 0].onThis.name);
-            Stage.player.printDebug();
+            Stage.printDebug();
             while (PlayerTurn)
             {
                 //Stage.player.scanForInteraction();
                 Stage.player.moveOrTurn();
-                Stage.player.printDebug();
+                Stage.printDebug();
 
             }
             

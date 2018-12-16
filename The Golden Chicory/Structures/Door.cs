@@ -1,4 +1,5 @@
 ﻿
+using Interactions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,12 +13,13 @@ namespace Structures
     {
         bool isLocked;
 
-        public Door(bool isLocked)
+        public Door(bool isLocked) : base()
         {
-            this.name = "Door";
-            this.description = "Hmm, this is a door";
-            this.symbol = "D";
+            name = "Door";
+            description = "Hmm, this is a door";
+            symbol = "|";
             this.isLocked = isLocked;
+            interactions.Add(new Open(this));
         }
     }
 }

@@ -19,8 +19,8 @@ namespace Map
         {
             this.x = x;
             this.y = y;
-            this.isWalkable = true;
-            this.onThis = new Floor();
+            isWalkable = true;
+            onThis = new Floor();
         }
 
         public string getEntitySymbol()

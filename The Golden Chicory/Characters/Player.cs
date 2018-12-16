@@ -20,7 +20,7 @@ namespace Characters
         public string symbolDown { get; set; }
         public Dictionary<string, int[]> closeCases;
 
-        public Player(int x, int y)
+        public Player(int x, int y) : base()
         {
             this.x = x;
             this.y = y;
@@ -134,7 +134,8 @@ namespace Characters
             addValidCloseCase(symbolDown, xCloseCase, yCloseCase, new int[2]);
             foreach (KeyValuePair<string, int[]> item in closeCases)
             {
-                Stage.debugList.Add(string.Format("Direction {0} = {1},{2}", item.Key, item.Value[0], item.Value[1]));
+                Stage.debugList.Add(string.Format("Direction {0} = {1}({2},{3})", item.Key, Stage.getInstance().MATRIX[item.Value[0],
+                    item.Value[1]].onThis.name,item.Value[0], item.Value[1]));
             }
         }
 
@@ -154,20 +155,9 @@ namespace Characters
         {
             foreach (KeyValuePair<string, int[]> item in closeCases)
             {
-                Stage.debugList.Add(string.Format("Direction {0} = {1},{2}", item.Key, item.Value[0], item.Value[1]));
+                Stage.debugList.Add(string.Format("Direction {0} = {1}({2},{3})", item.Key, Stage.getInstance().MATRIX[item.Value[0],
+                    item.Value[1]].onThis.name, item.Value[0], item.Value[1]));
             }
         }
-
-        public void printDebug()
-        {
-            Console.WriteLine("Debug:");
-            foreach (string debug in Stage.debugList)
-            {
-                Console.WriteLine(debug);
-            }
-            Stage.debugList.Clear();
-        }
-
-        
     }
 }

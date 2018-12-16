@@ -10,7 +10,7 @@ namespace Structures
 {
     class Wall : Structure
     {
-        public Wall()
+        public Wall():base()
         {
             name = "Wall";
             description = "Hmm, this is a wall";

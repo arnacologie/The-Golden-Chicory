@@ -71,6 +71,7 @@ namespace The_Golden_Chicory
         public static void printDebug()
         {
             Console.WriteLine("Debug:");
+            Console.WriteLine(debugList.Count);
             foreach (string debug in debugList)
             {
                 Console.WriteLine(debug);
