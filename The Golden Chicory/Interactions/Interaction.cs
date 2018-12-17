@@ -16,7 +16,7 @@ namespace Interactions
         {
             if (!interactible.isInteractible)
             {
-                Stage.debugList.Add("I can't do this");
+                Stage.debugOutput.Add("I can't do this");
                 return;
             }
         }

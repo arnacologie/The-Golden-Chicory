@@ -28,10 +28,6 @@ namespace The_Golden_Chicory
 
         public static void spawnLevel1()
         {
-            spawnEntity(1, 1, Stage.player);
-            Stage.player.initCloseCases();
-
-
             for (int x = 0; x < Stage.MATRIX_SIZE; x++)
             {
                 spawnEntity(x, 0, Stage.getInstance().structureFactory.createStructure(StructureType.Wall));
@@ -52,6 +48,9 @@ namespace The_Golden_Chicory
             {
                 spawnEntity(x, Stage.MATRIX_SIZE - 1, Stage.getInstance().structureFactory.createStructure(StructureType.Wall));
             }
+
+            spawnEntity(1, 1, Stage.player);
+            Stage.player.scanForInteraction();
         }
     }
 }

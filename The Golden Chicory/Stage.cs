@@ -14,13 +14,16 @@ namespace The_Golden_Chicory
     {
         private static Stage instance;
         public static readonly int MATRIX_SIZE = 10;
+        public static readonly int MAX_INTERACTION = 4;
         public Case[,] MATRIX { get; set; }
         private CaseFactory caseFactory;
         public StructureFactory structureFactory { get; set; }
         public static Player player { get; set; }
-        public static List<string> debugList;
-        public static List<string> interactionAvailable;
- 
+        public static List<string> debugOutput;
+        public static List<string> closeInteractionsOutput;
+        public static List<string> facingInteractionOutput;
+        public static List<string> interactionTriggeredOutput;
+
         public static string getFunctionName([CallerMemberName] string caller = null)
         {
             return caller;
@@ -32,7 +35,9 @@ namespace The_Golden_Chicory
             caseFactory = new CaseFactory();
             structureFactory = new StructureFactory();
             player = new Player(0, 0);
-            debugList = new List<string>();
+            debugOutput = new List<string>();
+            facingInteractionOutput = new List<string>();
+            closeInteractionsOutput = new List<string>();
         }
 
         public static Stage getInstance()
@@ -71,22 +76,32 @@ namespace The_Golden_Chicory
         public static void printDebug()
         {
             Console.WriteLine("Debug:");
-            Console.WriteLine(debugList.Count);
-            foreach (string debug in debugList)
+            Console.WriteLine(debugOutput.Count);
+            foreach (string debug in debugOutput)
             {
                 Console.WriteLine(debug);
             }
-            debugList.Clear();
+            debugOutput.Clear();
         }
 
-        public static void printInteractionAvailable()
+        public static void printCloseInteractions()
         {
-            Console.WriteLine("Debug:");
-            foreach (string interactionDetail in interactionAvailable)
+            Console.WriteLine("Close Interactions: ");
+            foreach (string interactionDetail in closeInteractionsOutput)
             {
                 Console.WriteLine(interactionDetail);
             }
-            interactionAvailable.Clear();
+            closeInteractionsOutput.Clear();
+        }
+
+        public static void printFacingInteractions()
+        {
+            Console.WriteLine("Facing interactions: ");
+            foreach (string facingInteractionDetail in facingInteractionOutput)
+            {
+                Console.WriteLine(facingInteractionDetail);
+            }
+            facingInteractionOutput.Clear();
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using static Factories.StructureFactory;
+using Interactions;
 
 namespace Characters
 {
@@ -19,6 +20,7 @@ namespace Characters
         public string symbolRight { get; set; }
         public string symbolDown { get; set; }
         public Dictionary<string, int[]> closeCases;
+        public Tuple<string, int[]> facingCase;
 
         public Player(int x, int y) : base()
         {
@@ -36,7 +38,7 @@ namespace Characters
             behavior = Behavior.Neutral;
         }
 
-        public bool moveOrTurn()
+        public bool action()
         {
             switch (Console.ReadKey().Key)
             {
@@ -56,6 +58,14 @@ namespace Characters
                     return turn(symbolLeft);
                 case ConsoleKey.RightArrow:
                     return turn(symbolRight);
+                case ConsoleKey.D1:
+                    return true;
+                case ConsoleKey.D2:
+                    return true;
+                case ConsoleKey.D3:
+                    return true;
+                case ConsoleKey.D4:
+                    return true;
                 default:
                     Stage.getInstance().showMATRIX();
                     Console.WriteLine("Error WRONG KEY {0} {1} (Z,Q,S,D,↑,←,↓,→)", Stage.getFunctionName(), this.GetType().Name);
@@ -77,7 +87,7 @@ namespace Characters
                 symbol = symbolDirection;
                 Stage.getInstance().showMATRIX();
                 Console.WriteLine("{0} {1} called, SUCCESS", Stage.getFunctionName(), this.GetType().Name);
-                initCloseCases();
+                scanForInteraction();
                 return true;
             }
             else
@@ -85,7 +95,7 @@ namespace Characters
                 symbol = symbolDirection;
                 Stage.getInstance().showMATRIX();
                 Console.WriteLine("{0} {1} called, FAIL (Collision avec {2})", Stage.getFunctionName(), this.GetType().Name, Stage.getInstance().MATRIX[x, y].onThis.name);
-                getCloseCases();
+                initFacingCase();
                 return false;
             }
         }
@@ -104,15 +114,50 @@ namespace Characters
             symbol = symbolDirection;
             Stage.getInstance().showMATRIX();
             Console.WriteLine("{0} {1} called, SUCCESS", Stage.getFunctionName(), this.GetType().Name);
+            initFacingCase();
             return true;
         }
 
+        //private bool interact(int touchNumber)
+        //{
+        //    if(closeCases.Count > 0)
+        //    {
+        //        switch (closeCases.Count)
+        //        {
+        //            case 1:
+        //                if(touchNumber, 1)
+        //                break;
+        //            case 2:
+        //                break;
+        //            case 3:
+        //                break;
+        //            case 4:
+        //                break;
+        //        }
+        //    }
+        //    return true;
+        //}
+        //TODO finir uncomment
+        //private bool getPossibleInteractions(int touchNumber,  int closeCasesCount)
+        //{
+        //    if(touchNumber > 0 && touchNumber <= closeCasesCount)
+        //    {
+        //        closeCases[]
+        //    }
+        //}
+
         public bool scanForInteraction()
         {
-            int xCloseCase;
-            int yCloseCase;
-            int[] closeCaseCoordinates = new int[2];
             initCloseCases();
+            initFacingCase();
+
+            //foreach (KeyValuePair<string, int[]> item in closeCases)
+            //{
+            //    List<Interaction> interactions = Stage.getInstance().MATRIX[item.Value[0], item.Value[0]].onThis.interactions;
+            //    string output = string.Format("Direction {0} = {1}({2},{3})", item.Key, Stage.getInstance().MATRIX[item.Value[0], item.Value[1]].onThis.name, item.Value[0], item.Value[1]);
+
+            //}
+            
             return true;
         }
 
@@ -132,11 +177,6 @@ namespace Characters
             addValidCloseCase(symbolUp, xCloseCase, yCloseCase, new int[2]);
             yCloseCase = y + 1;
             addValidCloseCase(symbolDown, xCloseCase, yCloseCase, new int[2]);
-            foreach (KeyValuePair<string, int[]> item in closeCases)
-            {
-                Stage.debugList.Add(string.Format("Direction {0} = {1}({2},{3})", item.Key, Stage.getInstance().MATRIX[item.Value[0],
-                    item.Value[1]].onThis.name,item.Value[0], item.Value[1]));
-            }
         }
 
         private bool addValidCloseCase(string symbolDirection, int xCloseCase, int yCloseCase, int[] closeCaseCoordinates)
@@ -155,8 +195,22 @@ namespace Characters
         {
             foreach (KeyValuePair<string, int[]> item in closeCases)
             {
-                Stage.debugList.Add(string.Format("Direction {0} = {1}({2},{3})", item.Key, Stage.getInstance().MATRIX[item.Value[0],
+                Stage.closeInteractionsOutput.Add(string.Format("Direction {0} = {1}({2},{3})", item.Key, Stage.getInstance().MATRIX[item.Value[0],
                     item.Value[1]].onThis.name, item.Value[0], item.Value[1]));
+            }
+        }
+
+        private void initFacingCase()
+        {
+            facingCase = null;
+            foreach (KeyValuePair<string, int[]> item in closeCases)
+            {
+                if (item.Key.Equals(symbol)) facingCase = new Tuple<string, int[]>(item.Key, item.Value);
+            }
+            if (facingCase != null)
+            {
+                Stage.facingInteractionOutput.Add(string.Format("Direction {0} = {1}({2},{3})", facingCase.Item1,
+                    Stage.getInstance().MATRIX[facingCase.Item2[0], facingCase.Item2[1]].onThis.name, facingCase.Item2[0], facingCase.Item2[1]));
             }
         }
     }
