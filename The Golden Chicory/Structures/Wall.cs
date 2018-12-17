@@ -17,7 +17,7 @@ namespace Structures
             symbol = "■";
             isInteractible = true;
             interactions = new List<Interaction>();
-            interactions.Add(new Information(this));
+            interactions.Add(new Inspect(this));
         }
     }
 }

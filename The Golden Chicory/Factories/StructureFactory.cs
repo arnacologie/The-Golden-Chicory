@@ -20,7 +20,7 @@ namespace Factories
             switch (structureType)
             {
                 case StructureType.Door:
-                    return new Door(false);
+                    return new Door(false, false);
                 case StructureType.Floor:
                     return new Floor();
                 case StructureType.Stairs:

@@ -12,10 +12,13 @@ namespace The_Golden_Chicory
         public string symbol { get; set; }
         public bool isInteractible { get; set; }
         public List<Interaction> interactions { get; set; }
+        public Entity onThis { get; set; }
 
         public Entity()
         {
             interactions = new List<Interaction>();
         }
+
+        public virtual void playerIsOnTop() { }
     }
 }

@@ -1,25 +1,53 @@
 ﻿
+using Characters;
 using Interactions;
+using Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using The_Golden_Chicory;
+using The_Golden_Chicory.Events;
 
 namespace Structures
 {
     //TODO Finir Door
-    class Door : Structure
+    class Door : Structure, Observer
     {
-        bool isLocked;
+        public bool isLocked { get; set; }
+        public bool isOpen { get; set; }
+        public string symbolClosed { get; set; }
+        public string symbolOpened { get; set; }
 
-        public Door(bool isLocked) : base()
+        public Door(bool isLocked, bool isOpen) : base()
         {
             name = "Door";
             description = "Hmm, this is a door";
-            symbol = "|";
+            symbolOpened = "_";
+            symbolClosed = "|";
+            if (isOpen) symbol = symbolOpened;
+            else symbol = symbolClosed;
             this.isLocked = isLocked;
-            interactions.Add(new Open(this));
+            this.isOpen = isOpen;
+            isInteractible = true;
+            OpenClose openClose = new OpenClose(this);
+            openClose.registerObserver(this);
+            interactions.Add(openClose);
+        }
+
+        public void update()
+        {
+            if (symbol.Equals(symbolOpened))
+            {
+                symbol = symbolClosed;
+                isOpen = false;
+            }
+            else
+            {
+                symbol = symbolOpened;
+                isOpen = true;
+            }
         }
     }
 }

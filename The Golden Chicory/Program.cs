@@ -28,6 +28,7 @@ namespace The_Golden_Chicory
                 Stage.player.action();
                 Stage.printDebug();
                 Stage.printFacingInteractions();
+                Stage.printInteractionTriggered();
             }
             
         }

@@ -8,13 +8,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using static Factories.StructureFactory;
 using Interactions;
+using Structures;
 
 namespace Characters
 {
     public class Player : Character
     {
         public static string namePlayer = "Endive";
-        public event EventHandler<MovedEvent> OnPlayerMove;
+        public static string symbolInit { get; set; }
         public string symbolUp { get; set; }
         public string symbolLeft { get; set; }
         public string symbolRight { get; set; }
@@ -29,6 +30,7 @@ namespace Characters
             name = namePlayer;
             description = "It's the player";
             symbol = "±";
+            symbolInit = "±";
             symbolUp = "↑";
             symbolLeft = "←";
             symbolRight = "→";
@@ -59,16 +61,16 @@ namespace Characters
                 case ConsoleKey.RightArrow:
                     return turn(symbolRight);
                 case ConsoleKey.D1:
-                    return true;
+                    return interact(1); ;
                 case ConsoleKey.D2:
-                    return true;
+                    return interact(2);
                 case ConsoleKey.D3:
-                    return true;
+                    return interact(3);
                 case ConsoleKey.D4:
-                    return true;
+                    return interact(4);
                 default:
                     Stage.getInstance().showMATRIX();
-                    Console.WriteLine("Error WRONG KEY {0} {1} (Z,Q,S,D,↑,←,↓,→)", Stage.getFunctionName(), this.GetType().Name);
+                    Console.WriteLine("Error WRONG KEY {0} {1} (Z,Q,S,D,↑,←,↓,→)", Stage.getFunctionName(), GetType().Name);
                     return false;
             }
         }
@@ -79,14 +81,28 @@ namespace Characters
             {
                 //OnPlayerMove(this, new MovedEvent(x, y));
                 Case currentCase = Stage.getInstance().MATRIX[this.x, this.y];
+                //if currentCase is an opened door
+                if (currentCase.onThis.GetType() == typeof(Door))
+                {
+                    Stage.getInstance().MATRIX[x, y].onThis.onThis = null;
+                    Stage.getInstance().MATRIX[x, y].onThis.playerIsOnTop();
+                }
+                else currentCase.onThis = Stage.getInstance().structureFactory.createStructure(StructureType.Floor);
                 Case nextCase = Stage.getInstance().MATRIX[x, y];
-                nextCase.onThis = this;
-                currentCase.onThis = Stage.getInstance().structureFactory.createStructure(StructureType.Floor);
+                //if nextCase is an opened door
+                if (nextCase.onThis.GetType() == typeof(Door))
+                {
+                    Stage.getInstance().MATRIX[x, y].onThis.onThis = this;
+                    Stage.getInstance().MATRIX[x, y].onThis.playerIsOnTop();
+                }
+                //TODO nextcase == Stage.getInstance().MATRIX[x, y] ?
+                else nextCase.onThis = this;
+                
                 this.x = x;
                 this.y = y;
                 symbol = symbolDirection;
                 Stage.getInstance().showMATRIX();
-                Console.WriteLine("{0} {1} called, SUCCESS", Stage.getFunctionName(), this.GetType().Name);
+                Console.WriteLine("{0} {1} called, SUCCESS {2}{3}", Stage.getFunctionName(), GetType().Name, x, y);
                 scanForInteraction();
                 return true;
             }
@@ -94,7 +110,7 @@ namespace Characters
             {
                 symbol = symbolDirection;
                 Stage.getInstance().showMATRIX();
-                Console.WriteLine("{0} {1} called, FAIL (Collision avec {2})", Stage.getFunctionName(), this.GetType().Name, Stage.getInstance().MATRIX[x, y].onThis.name);
+                Console.WriteLine("{0} {1} called, FAIL (Collision avec {2})", Stage.getFunctionName(), GetType().Name, Stage.getInstance().MATRIX[x, y].onThis.name);
                 initFacingCase();
                 return false;
             }
@@ -102,7 +118,7 @@ namespace Characters
 
         private bool checkMovement(int x, int y)
         {
-            if (Validator.isCaseEmpty(x, y))
+            if (Validator.isCaseValidForMovement(x, y))
             {
                 return true;
             }
@@ -118,46 +134,50 @@ namespace Characters
             return true;
         }
 
-        //private bool interact(int touchNumber)
-        //{
-        //    if(closeCases.Count > 0)
-        //    {
-        //        switch (closeCases.Count)
-        //        {
-        //            case 1:
-        //                if(touchNumber, 1)
-        //                break;
-        //            case 2:
-        //                break;
-        //            case 3:
-        //                break;
-        //            case 4:
-        //                break;
-        //        }
-        //    }
-        //    return true;
-        //}
-        //TODO finir uncomment
-        //private bool getPossibleInteractions(int touchNumber,  int closeCasesCount)
-        //{
-        //    if(touchNumber > 0 && touchNumber <= closeCasesCount)
-        //    {
-        //        closeCases[]
-        //    }
-        //}
+        private bool interact(int touchNumber)
+        {
+
+            if (facingCase != null && touchNumber > 0 && touchNumber <= 
+                Stage.getInstance().MATRIX[facingCase.Item2[0],facingCase.Item2[1]].onThis.interactions.Count)
+            {
+                switch (touchNumber)
+                {
+                    case 1:
+                        //TODO finir 
+                        Stage.getInstance().MATRIX[facingCase.Item2[0], facingCase.Item2[1]].onThis.interactions[0].trigger(this);
+                        Stage.getInstance().showMATRIX();
+                        Console.WriteLine("{0} {1} called, SUCCESS", Stage.getFunctionName(), this.GetType().Name);
+                        return true;
+                    case 2:
+                        Stage.getInstance().MATRIX[facingCase.Item2[0], facingCase.Item2[1]].onThis.interactions[1].trigger(this);
+                        Stage.getInstance().showMATRIX();
+                        Console.WriteLine("{0} {1} called, SUCCESS", Stage.getFunctionName(), this.GetType().Name);
+                        return true;
+                    case 3:
+                        Stage.getInstance().MATRIX[facingCase.Item2[0], facingCase.Item2[1]].onThis.interactions[2].trigger(this);
+                        Stage.getInstance().showMATRIX();
+                        Console.WriteLine("{0} {1} called, SUCCESS", Stage.getFunctionName(), this.GetType().Name);
+                        return true;
+                    case 4:
+                        Stage.getInstance().MATRIX[facingCase.Item2[0], facingCase.Item2[1]].onThis.interactions[3].trigger(this);
+                        Stage.getInstance().showMATRIX();
+                        Console.WriteLine("{0} {1} called, SUCCESS", Stage.getFunctionName(), this.GetType().Name);
+                        return true;
+                    default:
+                        Stage.debugOutput.Add(string.Format("Erreur WRONG KEY (1-4) {0} {1}", Stage.getFunctionName(), GetType().Name));
+                        Stage.getInstance().showMATRIX();
+                        Console.WriteLine("{0} {1} called, SUCCESS", Stage.getFunctionName(), this.GetType().Name);
+                        return false;
+                }
+            }
+            Stage.getInstance().showMATRIX();
+            return false;
+        }
 
         public bool scanForInteraction()
         {
             initCloseCases();
             initFacingCase();
-
-            //foreach (KeyValuePair<string, int[]> item in closeCases)
-            //{
-            //    List<Interaction> interactions = Stage.getInstance().MATRIX[item.Value[0], item.Value[0]].onThis.interactions;
-            //    string output = string.Format("Direction {0} = {1}({2},{3})", item.Key, Stage.getInstance().MATRIX[item.Value[0], item.Value[1]].onThis.name, item.Value[0], item.Value[1]);
-
-            //}
-            
             return true;
         }
 
@@ -209,8 +229,13 @@ namespace Characters
             }
             if (facingCase != null)
             {
-                Stage.facingInteractionOutput.Add(string.Format("Direction {0} = {1}({2},{3})", facingCase.Item1,
-                    Stage.getInstance().MATRIX[facingCase.Item2[0], facingCase.Item2[1]].onThis.name, facingCase.Item2[0], facingCase.Item2[1]));
+                //Stage.facingInteractionOutput.Add(string.Format("Direction {0} = {1}({2},{3})", facingCase.Item1,
+                //    Stage.getInstance().MATRIX[facingCase.Item2[0], facingCase.Item2[1]].onThis.name, facingCase.Item2[0], facingCase.Item2[1]));
+                foreach (Interaction interaction in Stage.getInstance().MATRIX[facingCase.Item2[0], facingCase.Item2[1]].onThis.interactions)
+                {
+                    Stage.facingInteractionOutput.Add(string.Format("{0} {1} [{2}]", interaction.name,Stage.getInstance().MATRIX[facingCase.Item2[0], facingCase.Item2[1]].onThis.name, Stage.getInstance().MATRIX[facingCase.Item2[0], facingCase.Item2[1]].onThis.interactions.IndexOf(interaction) + 1));
+                }
+                
             }
         }
     }

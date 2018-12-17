@@ -38,6 +38,7 @@ namespace The_Golden_Chicory
             debugOutput = new List<string>();
             facingInteractionOutput = new List<string>();
             closeInteractionsOutput = new List<string>();
+            interactionTriggeredOutput = new List<string>();
         }
 
         public static Stage getInstance()
@@ -102,6 +103,16 @@ namespace The_Golden_Chicory
                 Console.WriteLine(facingInteractionDetail);
             }
             facingInteractionOutput.Clear();
+        }
+
+        public static void printInteractionTriggered()
+        {
+            Console.WriteLine("Interaction Triggered: ");
+            foreach (string interactionTriggeredDetail in interactionTriggeredOutput)
+            {
+                Console.WriteLine(interactionTriggeredDetail);
+            }
+            interactionTriggeredOutput.Clear();
         }
     }
 }

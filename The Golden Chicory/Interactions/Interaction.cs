@@ -1,24 +1,33 @@
-﻿using The_Golden_Chicory;
+﻿using Interfaces;
+using System.Collections.Generic;
+using The_Golden_Chicory;
 
 namespace Interactions
 {
     //Decorator
-    public abstract class Interaction 
+    public abstract class Interaction
     {
-        private Entity interactible;
-        private Entity interactor;
+        protected Entity interactible;
+        protected Entity interactor;
+        protected List<Observer> observers;
+        public string name;
 
         public Interaction(Entity interactible)
         {
             this.interactible = interactible;
+            name = GetType().Name;
+            observers = new List<Observer>();
         }
         public virtual void trigger(Entity interactor)
         {
+            this.interactor = interactor;
             if (!interactible.isInteractible)
             {
-                Stage.debugOutput.Add("I can't do this");
+                nonInteratibleOuput();
                 return;
             }
         }
+
+        public abstract void nonInteratibleOuput();
     }
 }
