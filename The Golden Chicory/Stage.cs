@@ -18,6 +18,7 @@ namespace The_Golden_Chicory
         public Case[,] MATRIX { get; set; }
         private CaseFactory caseFactory;
         public StructureFactory structureFactory { get; set; }
+        public ItemFactory itemFactory { get; set; }
         public static Player player { get; set; }
         public static List<string> debugOutput;
         public static List<string> closeInteractionsOutput;
@@ -34,6 +35,7 @@ namespace The_Golden_Chicory
             MATRIX = new Case[MATRIX_SIZE, MATRIX_SIZE];
             caseFactory = new CaseFactory();
             structureFactory = new StructureFactory();
+            itemFactory = new ItemFactory();
             player = new Player(0, 0);
             debugOutput = new List<string>();
             facingInteractionOutput = new List<string>();

@@ -52,6 +52,8 @@ namespace Characters
                     return move(x - 1, y, symbolLeft);
                 case ConsoleKey.D:
                     return move(x + 1, y, symbolRight);
+                case ConsoleKey.E:
+                    return useItemInventory();
                 case ConsoleKey.UpArrow:
                     return turn(symbolUp);
                 case ConsoleKey.DownArrow:
@@ -237,6 +239,40 @@ namespace Characters
                 }
                 
             }
+        }
+
+        private bool useItemInventory()
+        {
+            interactWithInventory();
+            return false;
+        }
+
+        private bool interactWithInventory()
+        {
+            if (Inventory.getInstance().getItems().Count > 0)
+            {
+                if (facingCase != null)
+                {
+                    if (Stage.getInstance().MATRIX[facingCase.Item2[0], facingCase.Item2[1]].onThis.GetType() == typeof(Door))
+                    {
+                        Door door = (Door)Stage.getInstance().MATRIX[facingCase.Item2[0], facingCase.Item2[1]].onThis;
+                        if (door.isLocked)
+                        {
+                            door.isLocked = false;
+                            Stage.interactionTriggeredOutput.Add("I unlocked the door with the " + door.name);
+                        }
+                        else
+                            Stage.interactionTriggeredOutput.Add("The door is not locked");
+                    }
+                    else
+                        Stage.interactionTriggeredOutput.Add("I don't have the appropriate item");
+                }
+                else
+                    Stage.interactionTriggeredOutput.Add("I need something interactible in front of me to use my item");
+            }
+            else
+                Stage.interactionTriggeredOutput.Add("My inventory is empty");
+            return false;
         }
     }
 }

@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Items
 {
-    abstract class Item : Entity
+    public abstract class Item : Entity
     {
-        public abstract void use();
+        public abstract void pickUp();
     }
 }

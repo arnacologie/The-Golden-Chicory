@@ -24,7 +24,7 @@ namespace Interactions
         {
             foreach (Observer observer in observers)
             {
-                observer.update();
+                observer.update(false);
             }
         }
 

@@ -50,6 +50,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -60,12 +62,20 @@
   <ItemGroup>
     <Compile Include="Events\InteractionEvent.cs" />
     <Compile Include="Events\MovedEvent.cs" />
+    <Compile Include="Factories\ItemFactory.cs" />
     <Compile Include="Factories\StructureFactory.cs" />
     <Compile Include="Interactions\Inspect.cs" />
     <Compile Include="Interactions\OpenClose.cs" />
+    <Compile Include="Interactions\PickUp.cs" />
+    <Compile Include="Interactions\UseItem.cs" />
     <Compile Include="Interfaces\Observer.cs" />
     <Compile Include="Interfaces\Subject.cs" />
-    <Compile Include="Item.cs" />
+    <Compile Include="Inventory.cs" />
+    <Compile Include="Items\Consumable.cs" />
+    <Compile Include="Items\Equipement.cs" />
+    <Compile Include="Items\Item.cs" />
+    <Compile Include="Items\Key.cs" />
+    <Compile Include="Items\Weapon.cs" />
     <Compile Include="Map\ASCIICase.cs" />
     <Compile Include="Factories\ASCIICaseFactory.cs" />
     <Compile Include="Map\ASCIICasePrinter.cs" />
@@ -73,6 +83,7 @@
     <Compile Include="Factories\CaseFactory.cs" />
     <Compile Include="Characters\Character.cs" />
     <Compile Include="Entity.cs" />
+    <Compile Include="Registrator.cs" />
     <Compile Include="Spawner.cs" />
     <Compile Include="Structures\Door.cs" />
     <Compile Include="Structures\Floor.cs" />
@@ -102,8 +113,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Items\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -8,6 +8,6 @@ namespace Interfaces
 {
     public interface Observer
     {
-        void update();
+        void update(bool special);
     }
 }

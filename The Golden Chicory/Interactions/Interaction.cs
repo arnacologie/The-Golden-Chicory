@@ -7,8 +7,9 @@ namespace Interactions
     //Decorator
     public abstract class Interaction
     {
-        protected Entity interactible;
-        protected Entity interactor;
+        //TODO check privacy
+        public Entity interactible;
+        public Entity interactor;
         protected List<Observer> observers;
         public string name;
 

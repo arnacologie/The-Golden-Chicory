@@ -10,17 +10,18 @@ namespace Factories
 {
     public class StructureFactory
     {
-        public enum StructureType {Door, Floor, Stairs, Wall}
+        public enum StructureType {DoorLocked, DoorUnlocked, Floor, Stairs, Wall}
 
         public StructureType structureType;
-        
 
         public Structure createStructure(StructureType structureType)
         {
             switch (structureType)
             {
-                case StructureType.Door:
+                case StructureType.DoorUnlocked:
                     return new Door(false, false);
+                case StructureType.DoorLocked:
+                    return new Door(true, false);
                 case StructureType.Floor:
                     return new Floor();
                 case StructureType.Stairs:
@@ -28,7 +29,7 @@ namespace Factories
                 case StructureType.Wall:
                     return new Wall();
                 default:
-                    Console.WriteLine("Error in createStructure StructureFactory");
+                    Console.WriteLine("Error in {0} {1}", Stage.getFunctionName(), GetType().Name);
                     return null;
             }
         }

@@ -13,7 +13,7 @@ using The_Golden_Chicory.Events;
 namespace Structures
 {
     //TODO Finir Door
-    class Door : Structure, Observer
+    public class Door : Structure, Observer
     {
         public bool isLocked { get; set; }
         public bool isOpen { get; set; }
@@ -24,8 +24,8 @@ namespace Structures
         {
             name = "Door";
             description = "Hmm, this is a door";
-            symbolOpened = "_";
-            symbolClosed = "|";
+            symbolOpened = "|";
+            symbolClosed = "_";
             if (isOpen) symbol = symbolOpened;
             else symbol = symbolClosed;
             this.isLocked = isLocked;
@@ -36,17 +36,24 @@ namespace Structures
             interactions.Add(openClose);
         }
 
-        public void update()
+        public void update(bool special)
         {
-            if (symbol.Equals(symbolOpened))
+            if (!special)
             {
-                symbol = symbolClosed;
-                isOpen = false;
+                if (symbol.Equals(symbolOpened))
+                {
+                    symbol = symbolClosed;
+                    isOpen = false;
+                }
+                else
+                {
+                    symbol = symbolOpened;
+                    isOpen = true;
+                }
             }
             else
             {
-                symbol = symbolOpened;
-                isOpen = true;
+
             }
         }
     }
