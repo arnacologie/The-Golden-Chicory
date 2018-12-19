@@ -37,9 +37,13 @@ namespace The_Golden_Chicory
                 while (Stage.inCombat)
                 {
                     Stage.printDebug();
-                    Stage.printInCombatOutput();
                     Stage.printQuestOuput();
+                    Stage.player.combatAction();
+                    Stage.currentEnemy.attack(Stage.player);
+                    Stage.printInCombatOutput();
+                    Stage.checkDeath();
                 }
+                Stage.printInCombatOutput();
             }
             
         }

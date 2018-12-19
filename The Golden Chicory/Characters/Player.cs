@@ -333,7 +333,7 @@ namespace Characters
 
         public bool getAvailableAttackOptions()
         {
-            if()
+            //checkSkillOption(int value)
             foreach (Skill skill in skills)
             {
                 if (skill.skillType == SkillType.Natural)
@@ -343,9 +343,47 @@ namespace Characters
             switch (Console.ReadKey().Key)
             {
                 case ConsoleKey.D1:
-                    return getAvailableAttackOptions();
+                    if (checkAttackOption(1))
+                    {
+                        skills[0].useSkill(Stage.currentEnemy);
+                        return true;
+                    }
+                    return false;
                 case ConsoleKey.D2:
-                    return getAvailableSkillOptions();
+                    if (checkAttackOption(2))
+                    {
+                        skills[1].useSkill(Stage.currentEnemy);
+                        return true;
+                    }
+                    return false;
+                case ConsoleKey.D3:
+                    if (checkAttackOption(3))
+                    {
+                        skills[2].useSkill(Stage.currentEnemy);
+                        return true;
+                    }
+                    return false;
+                case ConsoleKey.D4:
+                    if (checkAttackOption(4))
+                    {
+                        skills[3].useSkill(Stage.currentEnemy);
+                        return true;
+                    }
+                    return false;
+                case ConsoleKey.D5:
+                    if (checkAttackOption(5))
+                    {
+                        skills[4].useSkill(Stage.currentEnemy);
+                        return true;
+                    }
+                    return false;
+                case ConsoleKey.D6:
+                    if (checkAttackOption(6))
+                    {
+                        skills[5].useSkill(Stage.currentEnemy);
+                        return true;
+                    }
+                    return false;
                 case ConsoleKey.Backspace:
                     return fightOptions();
                 default:
@@ -366,17 +404,47 @@ namespace Characters
             switch (Console.ReadKey().Key)
             {
                 case ConsoleKey.D1:
-                    return getAvailableAttackOptions();
+                    if (checkSkillOption(1))
+                    {
+                        skills[0].useSkill(Stage.currentEnemy);
+                        return true;
+                    }
+                    return false;
                 case ConsoleKey.D2:
-                    return getAvailableSkillOptions();
+                    if (checkSkillOption(2))
+                    {
+                        skills[1].useSkill(Stage.currentEnemy);
+                        return true;
+                    }
+                    return false;
                 case ConsoleKey.D3:
-                    return getAvailableSkillOptions();
+                    if (checkSkillOption(3))
+                    {
+                        skills[2].useSkill(Stage.currentEnemy);
+                        return true;
+                    }
+                    return false;
                 case ConsoleKey.D4:
-                    return getAvailableSkillOptions();
+                    if (checkSkillOption(4))
+                    {
+                        skills[3].useSkill(Stage.currentEnemy);
+                        return true;
+                    }
+                    return false;
                 case ConsoleKey.D5:
-                    return getAvailableSkillOptions();
+                    if (checkSkillOption(5))
+                    {
+                        skills[4].useSkill(Stage.currentEnemy);
+                        return true;
+                    }
+                    return false;
                 case ConsoleKey.D6:
-                    return getAvailableSkillOptions();
+                    if (checkSkillOption(6))
+                    {
+                        skills[5].useSkill(Stage.currentEnemy);
+                        return true;
+                    }
+                    return false;
                 case ConsoleKey.Backspace:
                     return fightOptions();
                 default:
@@ -384,7 +452,6 @@ namespace Characters
                     Console.WriteLine("Error WRONG KEY {0} {1} (1,2)", Stage.getFunctionName(), GetType().Name);
                     return false;
             }
-            return true;
         }
 
         private bool checkSkillOption(int value)
@@ -399,9 +466,26 @@ namespace Characters
             return value <= count;
         }
 
+        private bool checkAttackOption(int value)
+        {
+            int count = 0;
+            foreach (Skill skill in skills)
+            {
+                if (skill.skillType == SkillType.Natural)
+                    continue;
+                count++;
+            }
+            return value <= count;
+        }
+
         public bool itemOptions()
         {
             return true;
+        }
+
+        public void learnNewSkill(Skill skill)
+        {
+            skills.Add(skill);
         }
     }
 }

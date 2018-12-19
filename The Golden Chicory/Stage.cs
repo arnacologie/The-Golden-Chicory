@@ -1,12 +1,15 @@
 ﻿using Characters;
 using Factories;
 using Map;
+using Quests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using static Factories.StructureFactory;
+using static Quests.QuestManager;
 
 namespace The_Golden_Chicory
 {
@@ -24,6 +27,7 @@ namespace The_Golden_Chicory
         public static Player player { get; set; }
         public static StudentEnemy currentEnemy;
         public static bool inCombat;
+        public static int currentLevel;
         public static List<string> debugOutput;
         public static List<string> questOutput;
         public static List<string> closeInteractionsOutput;
@@ -52,6 +56,7 @@ namespace The_Golden_Chicory
             questOutput = new List<string>();
             inCombatOuput = new List<string>();
             availableCombatOptionsOutput = new List<string>();
+            currentLevel = 0;
         }
 
         public static Stage getInstance()
@@ -165,6 +170,33 @@ namespace The_Golden_Chicory
                 Console.Write(availableCombatOptionsOutputDetail);
             }
             availableCombatOptionsOutput.Clear();
+        }
+
+        public static void checkDeath()
+        {
+            if(player.health<=0)
+            {
+                inCombatOuput.Add("Game Over... Re-spawning");
+                switch (currentLevel)
+                {
+                    case 1:
+                        Stage.getInstance().initMATRIXToSpawnNewLevel();
+                        Console.ReadLine();
+                        Spawner.spawnFirstFloor();
+                        break;
+                    default:
+                        break;
+                }
+            }else if (currentEnemy.health <= 0)
+            {
+                Stage.currentEnemy.isAlive = false;
+                Stage.currentEnemy = null;
+                QuestManager.getInstance().notify(EventProgressType.StudentEnemyKilled);
+                if (currentEnemy.isDroppingLoot)
+                {
+                    currentEnemy.dropLoot();
+                }
+            }
         }
     }
 }

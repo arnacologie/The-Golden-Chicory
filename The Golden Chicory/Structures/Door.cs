@@ -81,6 +81,7 @@ namespace Structures
                         //TODO Caution readline between level spawns
                         Console.ReadLine();
                         Spawner.spawnFirstFloor();
+                        Stage.currentLevel = 1;
                         //Stage.getInstance().showMATRIX();
                     }
                 }

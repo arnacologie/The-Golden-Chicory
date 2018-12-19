@@ -10,7 +10,7 @@ namespace Factories
 {
     public class ItemFactory
     {
-        public enum ItemType { StudentCard, GoldenKey }
+        public enum ItemType { StudentCard, GoldenKey, Bag}
 
         public Item createItem(ItemType itemType)
         {
@@ -20,6 +20,8 @@ namespace Factories
                     return new Key("Student Card");
                 case ItemType.GoldenKey:
                     return new Key("Golden Key");
+                case ItemType.Bag:
+                    return new Bag();
                 default:
                     Console.WriteLine("Error in {0} {1}", Stage.getFunctionName(), GetType().Name);
                     return null;

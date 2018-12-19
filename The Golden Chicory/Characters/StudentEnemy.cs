@@ -30,12 +30,6 @@ namespace Characters
 
         public abstract void attack(Character target);
 
-        public virtual void dropLoot()
-        {
-            if (isDroppingLoot)
-            {
-
-            }
-        }
+        public abstract void dropLoot();
     }
 }

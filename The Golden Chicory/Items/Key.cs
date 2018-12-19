@@ -15,6 +15,7 @@ namespace Items
 {
     public class Key : Consumable, Subject
     {
+        public static string studentCardName = "Student Card";
         //Ƒ
         public Key(string name):base()
         {
@@ -34,14 +35,7 @@ namespace Items
             }
         }
 
-        public override void pickUp()
-        {
-            if(name.Equals("Student Card"))
-            {
-                QuestManager.getInstance().notify(EventProgressType.StudentCardPickedUp);
-            }
-            Inventory.getInstance().addItem(this);
-        }
+       
 
         public void registerObserver(Observer o)
         {

@@ -24,5 +24,10 @@ namespace Student_Ennemies
         {
             skills[0].useSkill(target);
         }
+
+        public override void dropLoot()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

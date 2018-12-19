@@ -9,6 +9,6 @@ namespace Items
 {
     public abstract class Item : Entity
     {
-        public abstract void pickUp();
+
     }
 }

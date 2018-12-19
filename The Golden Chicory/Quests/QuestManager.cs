@@ -12,7 +12,7 @@ namespace Quests
     {
         private static QuestManager instance;
         public List<Quest> quests { get; set; }
-        public enum EventProgressType { EnemyKilled, ItemGivenToNPC, NPCTalked, ThirdFloorReached, LocationReached, MachineTriggered, StudentCardPickedUp, CampusDoorwayOpened}
+        public enum EventProgressType { AnnoyingStudentKilled, StudentEnemyKilled, ItemGivenToNPC, NPCTalked, ThirdFloorReached, LocationReached, MachineTriggered, StudentCardPickedUp, CampusDoorwayOpened}
         public static readonly int QUEST1 = 0;
         public static readonly int QUEST2 = 1;
         private QuestManager()
@@ -20,7 +20,8 @@ namespace Quests
             quests = new List<Quest>();
             Quest quest1 = new Quest("Find your student card to enter in the campus !", EventProgressType.StudentCardPickedUp, 1);
             quest1.addTask(EventProgressType.CampusDoorwayOpened, 1);
-            Quest quest2 = new Quest("You're almost late ! Go to the 3rd Floor whatever it takes !", EventProgressType.ThirdFloorReached, 1);
+            Quest quest2 = new Quest("You're almost late ! Go to the 3rd Floor whatever it takes !", EventProgressType.StudentEnemyKilled, 1);
+            quest2.addTask(EventProgressType.ThirdFloorReached, 1);
             quests.Add(quest1);
             quests.Add(quest2);
         }

@@ -6,6 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using The_Golden_Chicory;
+using static Factories.ItemFactory;
+using static Factories.StructureFactory;
 using static Skills.Skill;
 
 namespace Student_Ennemies
@@ -18,11 +21,18 @@ namespace Student_Ennemies
             skills.Add(new Skill("Headbutt", name + " use Headbutt", 1, SkillType.Natural));
             symbol = "ß";
             interactions.Add(new FightAnnoyingStudent(this));
+            isInteractible = true;
         }
 
         public override void attack(Character target)
         {
             skills[0].useSkill(target);
+        }
+
+        public override void dropLoot()
+        {
+            Stage.getInstance().MATRIX[x, y].onThis = Stage.getInstance().structureFactory.createStructure(StructureType.Floor);
+            Spawner.spawnEntity(x, y, Stage.getInstance().itemFactory.createItem(ItemType.Bag));
         }
     }
 }

@@ -1,10 +1,13 @@
 ﻿using Interactions;
+using Items;
+using Quests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static Factories.StructureFactory;
+using static Quests.QuestManager;
 
 namespace The_Golden_Chicory.Interactions
 {
@@ -22,6 +25,15 @@ namespace The_Golden_Chicory.Interactions
         public override void trigger(Entity interactor)
         {
             base.trigger(interactor);
+            if (interactible.GetType() == typeof(Weapon))
+            {
+                Weapon weapon = (Weapon)interactible;
+                Stage.player.learnNewSkill(weapon.skill);
+            }
+            else if (interactible.GetType() == typeof(Key) && interactible.name.Equals(Key.studentCardName))
+            {
+                    QuestManager.getInstance().notify(EventProgressType.StudentCardPickedUp);
+            }
             Inventory.getInstance().addItem(interactible);
             Stage.getInstance().MATRIX[interactible.x, interactible.y].onThis = Stage.getInstance().structureFactory.createStructure(StructureType.Floor);
             Stage.interactionTriggeredOutput.Add(interactible.name + " picked up!");

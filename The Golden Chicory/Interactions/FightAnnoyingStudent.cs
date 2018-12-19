@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Characters;
+using Student_Ennemies;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,7 +18,7 @@ namespace Interactions
 
         public override void nonInteratibleOuput()
         {
-            throw new NotImplementedException();
+            Stage.debugOutput.Add("Nothing happened...");
         }
 
         public override void trigger(Entity interactor)
@@ -24,7 +26,11 @@ namespace Interactions
             base.trigger(interactor);
             Stage.interactionTriggeredOutput.Add("An "+interactible.name+" is blocking the to the 4th floor!");
             Stage.interactionTriggeredOutput.Add("He won't move ! It's time to fight !");
-            Stage.inCombat = true;
+            if (interactible.GetType() == typeof(AnnoyingStudent))
+            {
+                Stage.currentEnemy = (StudentEnemy)interactible;
+                Stage.inCombat = true;
+            }
         }
     }
 }

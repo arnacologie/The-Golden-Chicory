@@ -46,21 +46,28 @@ namespace Quests
                     if (checkIfQuestCompleted())
                     {
                         Stage.questOutput.Add("[Quest]" + name + "[COMPLETED]");
+                        return;
                     }
+                    Stage.questOutput.Add("[Quest]" + name + "[IN PROGRESS)]");
                 }
             }
         }
 
         private bool checkIfQuestCompleted()
         {
+            int count = 0;
             foreach (KeyValuePair<EventProgressType, int> item in taskToComplete)
             {
                 if (taskToComplete[item.Key] == stepsRemaningList[item.Key])
                 {
-                    status = COMPLETED;
-                    isEnabled = false;
-                    return true;
+                    count++;
                 }
+            }
+            if (count == taskToComplete.Keys.Count)
+            {
+                status = COMPLETED;
+                isEnabled = false;
+                return true;
             }
             return false;
         }
