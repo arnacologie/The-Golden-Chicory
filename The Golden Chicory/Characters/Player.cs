@@ -45,7 +45,7 @@ namespace Characters
             behavior = Behavior.Aggressive;
             isAlive = true;
             skills = new List<Skill>();
-            skills.Add(new Skill(Skill.GarbageDevLanguageName, "[All] DMG 2 , [Dev Student] DMG 0", 2, SkillType.LanguageDev));
+            skills.Add(new Skill(Skill.GarbageDevLanguageName, "[All] DMG 2 , [Dev Student] DMG 0", 2, SkillType.Natural));
         }
 
         public bool action()
@@ -296,46 +296,112 @@ namespace Characters
 
         public bool combatAction()
         {
+            Stage.availableCombatOptionsOutput.Add("Fight [1]");
+            Stage.availableCombatOptionsOutput.Add("Use Item [2]");
             switch (Console.ReadKey().Key)
             {
                 case ConsoleKey.D1:
-                    return combatInteract(1); ;
+                    return fightOptions();
                 case ConsoleKey.D2:
-                    return combatInteract(2);
-                case ConsoleKey.D3:
-                    return combatInteract(3);
-                case ConsoleKey.D4:
-                    return combatInteract(4);
+                    return itemOptions();
                 default:
                     Stage.getInstance().showMATRIX();
-                    Console.WriteLine("Error WRONG KEY {0} {1} (1,2,3,4)", Stage.getFunctionName(), GetType().Name);
+                    Console.WriteLine("Error WRONG KEY {0} {1} (1,2)", Stage.getFunctionName(), GetType().Name);
                     return false;
             }
         }
 
-        private bool combatInteract(int touchNumber)
+        public bool fightOptions()
         {
-            if (touchNumber == 1 || touchNumber == 2)
+            Stage.availableCombatOptionsOutput.Add("Show attack(s) [1]");
+            Stage.availableCombatOptionsOutput.Add("Show skills(s) [2]");
+            Stage.availableCombatOptionsOutput.Add("Go back [BACKSPACE]");
+            switch (Console.ReadKey().Key)
             {
-                switch (touchNumber)
-                {
-                    case 1:
-                        Stage.getInstance().MATRIX[facingCase.Item2[0], facingCase.Item2[1]].onThis.interactions[0].trigger(this);
-                        Stage.getInstance().showMATRIX();
-                        Console.WriteLine("{0} {1} called, SUCCESS", Stage.getFunctionName(), GetType().Name);
-                        return true;
-                    case 2:
-                        Stage.getInstance().MATRIX[facingCase.Item2[0], facingCase.Item2[1]].onThis.interactions[1].trigger(this);
-                        Stage.getInstance().showMATRIX();
-                        Console.WriteLine("{0} {1} called, SUCCESS", Stage.getFunctionName(), GetType().Name);
-                        return true;
-                    default:
-                        Stage.debugOutput.Add(string.Format("Erreur WRONG KEY (1-4) {0} {1}", Stage.getFunctionName(), GetType().Name));
-                        Stage.getInstance().showMATRIX();
-                        return false;
-                }
+                case ConsoleKey.D1:
+                    return getAvailableAttackOptions();
+                case ConsoleKey.D2:
+                    return getAvailableSkillOptions();
+                case ConsoleKey.Backspace:
+                    return combatAction();
+                default:
+                    Stage.getInstance().showMATRIX();
+                    Console.WriteLine("Error WRONG KEY {0} {1} (1,2)", Stage.getFunctionName(), GetType().Name);
+                    return false;
             }
-            return false;
+        }
+
+        public bool getAvailableAttackOptions()
+        {
+            if()
+            foreach (Skill skill in skills)
+            {
+                if (skill.skillType == SkillType.Natural)
+                    Stage.availableCombatOptionsOutput.Add(string.Format("{0} : {1} [{2}]", skill.name, skill.description, skills.IndexOf(skill) + 1));
+            }
+            Stage.availableCombatOptionsOutput.Add("Go back [BACKSPACE]");
+            switch (Console.ReadKey().Key)
+            {
+                case ConsoleKey.D1:
+                    return getAvailableAttackOptions();
+                case ConsoleKey.D2:
+                    return getAvailableSkillOptions();
+                case ConsoleKey.Backspace:
+                    return fightOptions();
+                default:
+                    Stage.getInstance().showMATRIX();
+                    Console.WriteLine("Error WRONG KEY {0} {1} (1,2)", Stage.getFunctionName(), GetType().Name);
+                    return false;
+            }
+        }
+
+        public bool getAvailableSkillOptions()
+        {
+            foreach (Skill skill in skills)
+            {
+                if (skill.skillType != SkillType.Natural)
+                    Stage.availableCombatOptionsOutput.Add(string.Format("{0} : {1} [{2}]", skill.name, skill.description, skills.IndexOf(skill) + 1));
+            }
+            Stage.availableCombatOptionsOutput.Add("Go back [BACKSPACE]");
+            switch (Console.ReadKey().Key)
+            {
+                case ConsoleKey.D1:
+                    return getAvailableAttackOptions();
+                case ConsoleKey.D2:
+                    return getAvailableSkillOptions();
+                case ConsoleKey.D3:
+                    return getAvailableSkillOptions();
+                case ConsoleKey.D4:
+                    return getAvailableSkillOptions();
+                case ConsoleKey.D5:
+                    return getAvailableSkillOptions();
+                case ConsoleKey.D6:
+                    return getAvailableSkillOptions();
+                case ConsoleKey.Backspace:
+                    return fightOptions();
+                default:
+                    Stage.getInstance().showMATRIX();
+                    Console.WriteLine("Error WRONG KEY {0} {1} (1,2)", Stage.getFunctionName(), GetType().Name);
+                    return false;
+            }
+            return true;
+        }
+
+        private bool checkSkillOption(int value)
+        {
+            int count = 0;
+            foreach (Skill skill in skills)
+            {
+                if (skill.skillType != SkillType.Natural)
+                    continue;
+                count++;
+            }
+            return value <= count;
+        }
+
+        public bool itemOptions()
+        {
+            return true;
         }
     }
 }

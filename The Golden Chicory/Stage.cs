@@ -30,7 +30,7 @@ namespace The_Golden_Chicory
         public static List<string> facingInteractionOutput;
         public static List<string> interactionTriggeredOutput;
         public static List<string> inCombatOuput;
-        public static List<string> availableOptionsOutput;
+        public static List<string> availableCombatOptionsOutput;
 
         public static string getFunctionName([CallerMemberName] string caller = null)
         {
@@ -51,7 +51,7 @@ namespace The_Golden_Chicory
             interactionTriggeredOutput = new List<string>();
             questOutput = new List<string>();
             inCombatOuput = new List<string>();
-            availableOptionsOutput = new List<string>();
+            availableCombatOptionsOutput = new List<string>();
         }
 
         public static Stage getInstance()
@@ -156,6 +156,15 @@ namespace The_Golden_Chicory
                 Console.Write(inCombatOuputDetail);
             }
             inCombatOuput.Clear();
+        }
+
+        public static void printAvailableCombatOptionsOutput()
+        {
+            foreach (string availableCombatOptionsOutputDetail in availableCombatOptionsOutput)
+            {
+                Console.Write(availableCombatOptionsOutputDetail);
+            }
+            availableCombatOptionsOutput.Clear();
         }
     }
 }
