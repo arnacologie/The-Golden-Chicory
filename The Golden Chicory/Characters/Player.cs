@@ -40,7 +40,8 @@ namespace Characters
             symbolDown = "↓";
             health = 10;
             isInteractible = true;
-            behavior = Behavior.Neutral;
+            behavior = Behavior.Aggressive;
+            isAlive = true;
         }
 
         public bool action()
@@ -254,6 +255,7 @@ namespace Characters
             return false;
         }
 
+        //TODO move this function to inventory
         private bool interactWithInventory()
         {
             if (Inventory.getInstance().getItems().Count > 0)

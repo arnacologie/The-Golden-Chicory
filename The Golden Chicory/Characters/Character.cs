@@ -9,8 +9,14 @@ namespace Characters
 {
     public abstract class Character : Entity
     {
-        public enum Behavior {Pacific, Neutral, Aggressive};
+        public enum Behavior {Pacific, Aggressive};
         public double health { get; set; }
         public Behavior behavior;
+        public bool isAlive;
+
+        public void takeDamage(double damage)
+        {
+            health -= damage;
+        }
     }
 }
