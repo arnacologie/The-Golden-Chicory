@@ -12,8 +12,6 @@ namespace Factories
     {
         public enum ItemType { StudentCard, GoldenKey }
 
-        public ItemType itemType;
-
         public Item createItem(ItemType itemType)
         {
             switch (itemType)

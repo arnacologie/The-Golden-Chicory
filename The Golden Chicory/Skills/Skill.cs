@@ -1,4 +1,5 @@
 ﻿using Characters;
+using Student_Ennemies;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace Skills
 {
     public class Skill
     {
+        public static string GarbageDevLanguageName = "Garbage Language Dev";
         public string name;
         public string description;
         public double damage;
@@ -28,7 +30,12 @@ namespace Skills
 
         public void useSkill(Character target)
         {
-            if (target.behavior == Behavior.Aggressive) {
+            if (name == GarbageDevLanguageName && target.GetType() == typeof(DevStudent) && target.behavior == Behavior.Aggressive)
+            {
+                target.takeDamage(0);
+            }
+            else if (target.behavior == Behavior.Aggressive)
+            {
                 target.takeDamage(damage);
             }
         }

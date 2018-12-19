@@ -18,5 +18,11 @@ namespace Factories
             }
             else return null;
         }
+
+        //for init the map when I load another level
+        public Case recreateCase(int x, int y)
+        {
+            return new Case(x, y);
+        }
     }
 }

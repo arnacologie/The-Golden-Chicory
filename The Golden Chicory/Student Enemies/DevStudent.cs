@@ -10,9 +10,9 @@ using static Skills.Skill;
 
 namespace Student_Ennemies
 {
-    public class AnnoyingStudent : StudentEnemy
+    public class DevStudent : StudentEnemy
     {
-        public AnnoyingStudent(int x, int y, string name, double health, bool isDroppingLoot) : base(x, y, name, health, isDroppingLoot)
+        public DevStudent(int x, int y, string name, double health, bool isDroppingLoot) : base(x, y, name, health, isDroppingLoot)
         {
             description = "This is a " + name;
             skills.Add(new Skill("Headbutt", name + " use Headbutt", 1, SkillType.Natural));

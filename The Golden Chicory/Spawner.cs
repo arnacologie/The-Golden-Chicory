@@ -8,6 +8,7 @@ using static Factories.ItemFactory;
 using Structures;
 using Items;
 using Quests;
+using static Factories.StudentEnemyFactory;
 
 namespace The_Golden_Chicory
 {
@@ -31,7 +32,7 @@ namespace The_Golden_Chicory
             }
         }
 
-        public static void spawnLevel1()
+        public static void spawnLevelTest()
         {
             //top row
             for (int x = 0; x < Stage.MATRIX_SIZE; x++)
@@ -51,7 +52,7 @@ namespace The_Golden_Chicory
             { 
                 if(x == 5)
                 {
-                    spawnEntity(x, 4, Stage.getInstance().structureFactory.createStructure(StructureType.DoorLocked));
+                    spawnEntity(x, 4, Stage.getInstance().structureFactory.createStructure(StructureType.DoorLockedVertical));
                     continue;
                 }
                 spawnEntity(x, 4, Stage.getInstance().structureFactory.createStructure(StructureType.Wall));
@@ -94,7 +95,7 @@ namespace The_Golden_Chicory
             {
                 if (y == 2 || y == 3 || y == 4)
                 {
-                    spawnEntity(9, y, Stage.getInstance().structureFactory.createStructure(StructureType.DoorLocked));
+                    spawnEntity(9, y, Stage.getInstance().structureFactory.createStructure(StructureType.DoorLockedVertical));
                     Stage.getInstance().MATRIX[9, y].onThis.name = Door.campusDoorName;
                 }
                 spawnEntity(9, y, Stage.getInstance().structureFactory.createStructure(StructureType.Wall));
@@ -112,6 +113,115 @@ namespace The_Golden_Chicory
             Stage.player.scanForInteraction();
             //Set the quests
             QuestManager.getInstance().quests[QuestManager.QUEST1].activateQuest();
+
+        }
+
+        public static void spawnFirstFloor()
+        {
+            //top row
+            for (int x = 0; x < Stage.MATRIX_SIZE; x++)
+            {
+                if (x == 6) spawnEntity(x, 0, Stage.getInstance().structureFactory.createStructure(StructureType.FirstFloorStairs));
+                else if (x == 2) continue;
+                else if (x==1 || x==3) spawnEntity(x, 0, Stage.getInstance().structureFactory.createStructure(StructureType.DoorLockedVertical));
+                else spawnEntity(x, 0, Stage.getInstance().structureFactory.createStructure(StructureType.Wall));
+            }
+            //right row
+            for (int y = 1; y < 9; y++)
+            {
+                if (y == 2 || y == 3 || y ==4 ) spawnEntity(0, y, Stage.getInstance().structureFactory.createStructure(StructureType.DoorUnlockedVertical));
+                else spawnEntity(0, y, Stage.getInstance().structureFactory.createStructure(StructureType.Wall));
+            }
+            //left row
+            for (int y = 1; y < 9; y++)
+            {
+                if (y == 7) continue;
+                spawnEntity(9, y, Stage.getInstance().structureFactory.createStructure(StructureType.Wall));
+            }
+            //other cases
+            for (int x = 1; x < 10; x++)
+            {
+                if (x == 3 || x == 8)
+                {
+                    spawnEntity(x, 8, Stage.getInstance().structureFactory.createStructure(StructureType.DoorUnlockedHorizontal));
+                }
+                else spawnEntity(x, 8, Stage.getInstance().structureFactory.createStructure(StructureType.Wall));
+            }
+            for(int x = 0; x<9; x++)
+            {
+                if (x == 4) spawnEntity(4, 1, Stage.getInstance().structureFactory.createStructure(StructureType.FirstFloorStairs));
+                else if (x == 6) spawnEntity(6, 1, Stage.getInstance().structureFactory.createStructure(StructureType.DoorUnlockedHorizontal));
+                else if (x == 2) continue;
+                else spawnEntity(x, 1, Stage.getInstance().structureFactory.createStructure(StructureType.Wall));
+            }
+            for(int x = 1; x<9; x++)
+            {
+                if (x == 3 || x == 8)
+                {
+                    continue;
+                }
+                spawnEntity(x, 6, Stage.getInstance().structureFactory.createStructure(StructureType.Wall));
+            }
+            for(int x = 0; x<10; x++)
+            {
+                if (x == 3 || x == 8) continue;
+                else if (x == 4 || x == 9) spawnEntity(x, 7, Stage.getInstance().structureFactory.createStructure(StructureType.FirstFloorStairs));
+                else spawnEntity(x, 7, Stage.getInstance().structureFactory.createStructure(StructureType.Wall));
+            }
+            spawnEntity(7, 2, Stage.getInstance().structureFactory.createStructure(StructureType.DoorLockedVertical));
+            spawnEntity(8, 2, Stage.getInstance().structureFactory.createStructure(StructureType.Wall));
+            //spawnStudentEnemies
+            spawnEntity(4, 2, Stage.getInstance().studentEnemyFactory.createStudentEnemy(StudentEnemyType.AnnoyingStudent));
+            spawnEntity(6, 2, Stage.getInstance().studentEnemyFactory.createStudentEnemy(StudentEnemyType.AnnoyingStudent));
+            spawnEntity(3, 7, Stage.getInstance().studentEnemyFactory.createStudentEnemy(StudentEnemyType.AnnoyingStudent));
+            spawnEntity(8, 7, Stage.getInstance().studentEnemyFactory.createStudentEnemy(StudentEnemyType.AnnoyingStudent));
+            //register door in key
+            //Registrator.doorInKey((Door)Stage.getInstance().MATRIX[5, 4].onThis, (Key)Stage.getInstance().MATRIX[2, 8].onThis);
+            //Configure the player 
+            spawnEntity(1, 3, Stage.player);
+            Stage.player.scanForInteraction();
+            //Set the quests
+            QuestManager.getInstance().quests[QuestManager.QUEST2].activateQuest();
+
+        }
+
+        public static void spawnForthFloor()
+        {
+            //top row
+            for (int x = 0; x < Stage.MATRIX_SIZE; x++)
+            {
+                spawnEntity(x, 0, Stage.getInstance().structureFactory.createStructure(StructureType.Wall));
+            }
+            //left row
+            for (int y = 1; y < 9; y++)
+            {
+                if (y == 2 || y == 3 || y == 4) spawnEntity(0, y, Stage.getInstance().structureFactory.createStructure(StructureType.DoorUnlockedVertical));
+                else spawnEntity(0, y, Stage.getInstance().structureFactory.createStructure(StructureType.Wall));
+            }
+            //right row
+            for (int y = 1; y < 9; y++)
+            {
+                if (y == 2 || y == 3 || y == 4)
+                {
+                    spawnEntity(9, y, Stage.getInstance().structureFactory.createStructure(StructureType.DoorLockedVertical));
+                    Stage.getInstance().MATRIX[9, y].onThis.name = Door.campusDoorName;
+                }
+                spawnEntity(9, y, Stage.getInstance().structureFactory.createStructure(StructureType.Wall));
+            }
+            //other cases
+            for (int x = 1; x < 10; x++)
+            {
+                if (x == 6 || x == 7) continue;
+                spawnEntity(x, 8, Stage.getInstance().structureFactory.createStructure(StructureType.Wall));
+            }
+            spawnEntity(6, 1, Stage.getInstance().structureFactory.createStructure(StructureType.FirstFloorStairs));
+            //register door in key
+            //Registrator.doorInKey((Door)Stage.getInstance().MATRIX[5, 4].onThis, (Key)Stage.getInstance().MATRIX[2, 8].onThis);
+            //Configure the player 
+            spawnEntity(1, 3, Stage.player);
+            Stage.player.scanForInteraction();
+            //Set the quests
+            QuestManager.getInstance().quests[QuestManager.QUEST2].activateQuest();
 
         }
     }

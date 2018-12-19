@@ -14,11 +14,12 @@ namespace Characters
     //public Behavior behavior;
     public abstract class StudentEnemy : Character
     {
-        public List<Skill> skills { get; }
         public bool isDroppingLoot;
 
-        public StudentEnemy(string name, double health, bool isDroppingLoot)
+        public StudentEnemy(int x, int y, string name, double health, bool isDroppingLoot)
         {
+            this.x = x;
+            this.y = y;
             this.name = name;
             behavior = Behavior.Aggressive;
             this.health = health;

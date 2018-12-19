@@ -20,13 +20,17 @@ namespace The_Golden_Chicory
         private CaseFactory caseFactory;
         public StructureFactory structureFactory { get; set; }
         public ItemFactory itemFactory { get; set; }
+        public StudentEnemyFactory studentEnemyFactory { get; set; }
         public static Player player { get; set; }
+        public static StudentEnemy currentEnemy;
+        public static bool inCombat;
         public static List<string> debugOutput;
         public static List<string> questOutput;
         public static List<string> closeInteractionsOutput;
         public static List<string> facingInteractionOutput;
         public static List<string> interactionTriggeredOutput;
         public static List<string> inCombatOuput;
+        public static List<string> availableOptionsOutput;
 
         public static string getFunctionName([CallerMemberName] string caller = null)
         {
@@ -39,6 +43,7 @@ namespace The_Golden_Chicory
             caseFactory = new CaseFactory();
             structureFactory = new StructureFactory();
             itemFactory = new ItemFactory();
+            studentEnemyFactory = new StudentEnemyFactory();
             player = new Player(0, 0);
             debugOutput = new List<string>();
             facingInteractionOutput = new List<string>();
@@ -46,6 +51,7 @@ namespace The_Golden_Chicory
             interactionTriggeredOutput = new List<string>();
             questOutput = new List<string>();
             inCombatOuput = new List<string>();
+            availableOptionsOutput = new List<string>();
         }
 
         public static Stage getInstance()
@@ -64,6 +70,17 @@ namespace The_Golden_Chicory
                 for (int x = 0; x < MATRIX_SIZE; x++)
                 {
                     MATRIX[x, y] = caseFactory.createCase(x, y);
+                }
+            }
+        }
+
+        public void initMATRIXToSpawnNewLevel()
+        {
+            for (int y = 0; y < MATRIX_SIZE; y++)
+            {
+                for (int x = 0; x < MATRIX_SIZE; x++)
+                {
+                    MATRIX[x, y] = caseFactory.recreateCase(x, y);
                 }
             }
         }

@@ -12,6 +12,8 @@ using Structures;
 using Items;
 using Quests;
 using static Quests.QuestManager;
+using Skills;
+using static Skills.Skill;
 
 namespace Characters
 {
@@ -42,6 +44,8 @@ namespace Characters
             isInteractible = true;
             behavior = Behavior.Aggressive;
             isAlive = true;
+            skills = new List<Skill>();
+            skills.Add(new Skill(Skill.GarbageDevLanguageName, "[All] DMG 2 , [Dev Student] DMG 0", 2, SkillType.LanguageDev));
         }
 
         public bool action()
@@ -77,7 +81,7 @@ namespace Characters
                     //TODO Add Tab to showInventory
                 default:
                     Stage.getInstance().showMATRIX();
-                    Console.WriteLine("Error WRONG KEY {0} {1} (Z,Q,S,D,↑,←,↓,→)", Stage.getFunctionName(), GetType().Name);
+                    Console.WriteLine("Error WRONG KEY {0} {1} (Z,Q,S,D,↑,←,↓,→,1,2,3,4)", Stage.getFunctionName(), GetType().Name);
                     return false;
             }
         }
@@ -118,7 +122,7 @@ namespace Characters
                 symbol = symbolDirection;
                 Stage.getInstance().showMATRIX();
                 if(x >= 0 && x < Stage.MATRIX_SIZE && y >= 0 && y < Stage.MATRIX_SIZE)
-                    Console.WriteLine("{0} {1} called, FAIL (Collision avec {2})", Stage.getFunctionName(), GetType().Name, checkMovement(x, y), Stage.getInstance().MATRIX[x, y].onThis.name);
+                    Console.WriteLine("{0} {1} called, FAIL (Collision avec {2})", Stage.getFunctionName(), GetType().Name, Stage.getInstance().MATRIX[x, y].onThis.name);
                 else Console.WriteLine("{0} {1} called, FAIL (It's the void down here!)", Stage.getFunctionName(), GetType().Name, checkMovement(x, y));
                 initFacingCase();
                 return false;
@@ -175,7 +179,6 @@ namespace Characters
                     default:
                         Stage.debugOutput.Add(string.Format("Erreur WRONG KEY (1-4) {0} {1}", Stage.getFunctionName(), GetType().Name));
                         Stage.getInstance().showMATRIX();
-                        Console.WriteLine("{0} {1} called, SUCCESS", Stage.getFunctionName(), this.GetType().Name);
                         return false;
                 }
             }
@@ -271,7 +274,7 @@ namespace Characters
                             door.isLocked = false;
                             if(door.name.Equals(Door.campusDoorName))
                             {
-                                Stage.interactionTriggeredOutput.Add("The "+door.name+" is now opened");
+                                Stage.interactionTriggeredOutput.Add("You can now open the "+door.name);
                                 QuestManager.getInstance().notify(EventProgressType.CampusDoorwayOpened);
                             }
 
@@ -288,6 +291,50 @@ namespace Characters
             }
             else
                 Stage.interactionTriggeredOutput.Add("My inventory is empty");
+            return false;
+        }
+
+        public bool combatAction()
+        {
+            switch (Console.ReadKey().Key)
+            {
+                case ConsoleKey.D1:
+                    return combatInteract(1); ;
+                case ConsoleKey.D2:
+                    return combatInteract(2);
+                case ConsoleKey.D3:
+                    return combatInteract(3);
+                case ConsoleKey.D4:
+                    return combatInteract(4);
+                default:
+                    Stage.getInstance().showMATRIX();
+                    Console.WriteLine("Error WRONG KEY {0} {1} (1,2,3,4)", Stage.getFunctionName(), GetType().Name);
+                    return false;
+            }
+        }
+
+        private bool combatInteract(int touchNumber)
+        {
+            if (touchNumber == 1 || touchNumber == 2)
+            {
+                switch (touchNumber)
+                {
+                    case 1:
+                        Stage.getInstance().MATRIX[facingCase.Item2[0], facingCase.Item2[1]].onThis.interactions[0].trigger(this);
+                        Stage.getInstance().showMATRIX();
+                        Console.WriteLine("{0} {1} called, SUCCESS", Stage.getFunctionName(), GetType().Name);
+                        return true;
+                    case 2:
+                        Stage.getInstance().MATRIX[facingCase.Item2[0], facingCase.Item2[1]].onThis.interactions[1].trigger(this);
+                        Stage.getInstance().showMATRIX();
+                        Console.WriteLine("{0} {1} called, SUCCESS", Stage.getFunctionName(), GetType().Name);
+                        return true;
+                    default:
+                        Stage.debugOutput.Add(string.Format("Erreur WRONG KEY (1-4) {0} {1}", Stage.getFunctionName(), GetType().Name));
+                        Stage.getInstance().showMATRIX();
+                        return false;
+                }
+            }
             return false;
         }
     }

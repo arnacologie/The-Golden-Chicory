@@ -1,18 +1,31 @@
-﻿using System;
+﻿using Interactions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using The_Golden_Chicory.Interactions;
 
 namespace Structures
 {
-    class Stairs : Structure
+    public class Stairs : Structure
     {
-        public Stairs():base()
+        public int floorLocation;
+        public Stairs(int floorLocation):base()
         {
-            this.name = "Stairs";
-            this.description = "Hmm this is some stairs";
-            this.symbol = "S";
+            name = "Stairs";
+            description = "Hmm this is some stairs";
+            symbol = "≡";
+            isInteractible = true;
+            this.floorLocation = floorLocation;
+            switch (floorLocation)
+            {
+                case 1:
+                    interactions.Add(new MoveTo4thFloor(this));
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

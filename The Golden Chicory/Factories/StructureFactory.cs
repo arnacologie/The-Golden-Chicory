@@ -10,24 +10,26 @@ namespace Factories
 {
     public class StructureFactory
     {
-        public enum StructureType {DoorLocked, DoorUnlocked, DormDoor, Floor, Stairs, Wall}
-
-        public StructureType structureType;
+        public enum StructureType {DoorLockedVertical, DoorUnlockedVertical, DoorLockedHorizontal, DoorUnlockedHorizontal, DormDoor, Floor, FirstFloorStairs, Wall}
 
         public Structure createStructure(StructureType structureType)
         {
             switch (structureType)
             {
-                case StructureType.DoorUnlocked:
-                    return new Door(false, false, false);
-                case StructureType.DoorLocked:
-                    return new Door(true, false, false);
+                case StructureType.DoorUnlockedVertical:
+                    return new Door(true, false, false, false);
+                case StructureType.DoorLockedVertical:
+                    return new Door(true, true, false, false);
+                case StructureType.DoorUnlockedHorizontal:
+                    return new Door(false, false, false, false);
+                case StructureType.DoorLockedHorizontal:
+                    return new Door(false, true, false, false);
                 case StructureType.DormDoor:
-                    return new Door(true, false, true);
+                    return new Door(false, true, false, true);
                 case StructureType.Floor:
                     return new Floor();
-                case StructureType.Stairs:
-                    return new Stairs();
+                case StructureType.FirstFloorStairs:
+                    return new Stairs(1);
                 case StructureType.Wall:
                     return new Wall();
                 default:

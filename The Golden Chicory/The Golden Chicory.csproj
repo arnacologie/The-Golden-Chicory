@@ -60,7 +60,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Student Enemies\DevStudent.cs" />
+    <Compile Include="Characters\StudentEnemy.cs" />
     <Compile Include="Characters\NPC.cs" />
+    <Compile Include="Factories\StudentEnemyFactory.cs" />
+    <Compile Include="Interactions\FightAnnoyingStudent.cs" />
+    <Compile Include="Interactions\MoveTo4thFloor.cs" />
+    <Compile Include="Student Enemies\AnnoyingStudent.cs" />
     <Compile Include="Events\InteractionEvent.cs" />
     <Compile Include="Events\MovedEvent.cs" />
     <Compile Include="Factories\ItemFactory.cs" />
@@ -88,6 +94,7 @@
     <Compile Include="Quests\Quest.cs" />
     <Compile Include="Quests\QuestManager.cs" />
     <Compile Include="Registrator.cs" />
+    <Compile Include="Skills\Skill.cs" />
     <Compile Include="Spawner.cs" />
     <Compile Include="Structures\Door.cs" />
     <Compile Include="Structures\Floor.cs" />

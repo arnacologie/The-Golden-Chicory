@@ -22,12 +22,20 @@ namespace Structures
         public bool isSpecial;
         public static readonly string campusDoorName = "Campus Doorway";
 
-        public Door(bool isLocked, bool isOpen, bool special) : base()
+        public Door(bool isVertical,bool isLocked, bool isOpen, bool special) : base()
         {
             name = "Door";
             description = "Hmm, this is a door";
-            symbolOpened = "_";
-            symbolClosed = "|";
+            if (isVertical)
+            {
+                symbolOpened = "_";
+                symbolClosed = "|";
+            }
+            else
+            {
+                symbolOpened = "|";
+                symbolClosed = "_";
+            }
             if (isOpen) symbol = symbolOpened;
             else symbol = symbolClosed;
             this.isLocked = isLocked;
@@ -47,6 +55,12 @@ namespace Structures
             }
         }
 
+        public void switchSymbolDirection()
+        {
+            symbolOpened = "|";
+            symbolClosed = "_";
+        }
+
         public void update(bool fromKey)
         {
             if (!fromKey && !isSpecial)
@@ -60,7 +74,17 @@ namespace Structures
                 {
                     symbol = symbolOpened;
                     isOpen = true;
+                    if (name.Equals(campusDoorName))
+                    {
+                        Stage.getInstance().initMATRIXToSpawnNewLevel();
+                        //Stage.getInstance().showMATRIX();
+                        //TODO Caution readline between level spawns
+                        Console.ReadLine();
+                        Spawner.spawnFirstFloor();
+                        //Stage.getInstance().showMATRIX();
+                    }
                 }
+                
             }
         }
     }
