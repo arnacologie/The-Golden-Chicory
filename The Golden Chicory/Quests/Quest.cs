@@ -30,7 +30,7 @@ namespace Quests
             isEnabled = false;
         }
 
-        public void AddTask(EventProgressType eventProgressType, int howMuch)
+        public void addTask(EventProgressType eventProgressType, int howMuch)
         {
             taskToComplete.Add(eventProgressType, howMuch);
             stepsRemaningList.Add(eventProgressType, 0);

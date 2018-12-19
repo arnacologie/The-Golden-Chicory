@@ -12,12 +12,14 @@ namespace Quests
     {
         private static QuestManager instance;
         public List<Quest> quests { get; set; }
-        public enum EventProgressType { EnemyKilled, ItemGivenToNPC, NPCTalked, LocationReached, MachineTriggered, StudentCardPickedUp }
+        public enum EventProgressType { EnemyKilled, ItemGivenToNPC, NPCTalked, LocationReached, MachineTriggered, StudentCardPickedUp, CampusDoorwayOpened}
         public static readonly int QUEST1 = 0;
         private QuestManager()
         {
             quests = new List<Quest>();
-            quests.Add(new Quest("Find your student card to enter in the campus !", EventProgressType.StudentCardPickedUp, 1));
+            Quest quest = new Quest("Find your student card to enter in the campus !", EventProgressType.StudentCardPickedUp, 1);
+            quest.addTask(EventProgressType.CampusDoorwayOpened, 1);
+            quests.Add(quest);
         }
 
         public static QuestManager getInstance()

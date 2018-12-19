@@ -20,6 +20,7 @@ namespace Structures
         public string symbolClosed { get; set; }
         public string symbolOpened { get; set; }
         public bool isSpecial;
+        public static readonly string campusDoorName = "Campus Doorway";
 
         public Door(bool isLocked, bool isOpen, bool special) : base()
         {

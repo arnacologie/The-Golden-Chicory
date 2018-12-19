@@ -10,6 +10,8 @@ using static Factories.StructureFactory;
 using Interactions;
 using Structures;
 using Items;
+using Quests;
+using static Quests.QuestManager;
 
 namespace Characters
 {
@@ -265,7 +267,13 @@ namespace Characters
                         if (door.isLocked)
                         {
                             door.isLocked = false;
-                            Stage.interactionTriggeredOutput.Add("I unlocked the door with the " + door.name);
+                            if(door.name.Equals(Door.campusDoorName))
+                            {
+                                Stage.interactionTriggeredOutput.Add("The "+door.name+" is now opened");
+                                QuestManager.getInstance().notify(EventProgressType.CampusDoorwayOpened);
+                            }
+
+                            else Stage.interactionTriggeredOutput.Add("I unlocked the door with the " + door.name);
                         }
                         else
                             Stage.interactionTriggeredOutput.Add("The door is unlocked");

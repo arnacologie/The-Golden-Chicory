@@ -92,8 +92,11 @@ namespace The_Golden_Chicory
             //right row
             for (int y = 1; y<9; y++)
             {
-                if(y == 2 || y == 3 || y == 4)
+                if (y == 2 || y == 3 || y == 4)
+                {
                     spawnEntity(9, y, Stage.getInstance().structureFactory.createStructure(StructureType.DoorLocked));
+                    Stage.getInstance().MATRIX[9, y].onThis.name = Door.campusDoorName;
+                }
                 spawnEntity(9, y, Stage.getInstance().structureFactory.createStructure(StructureType.Wall));
             }
             //other cases
@@ -109,6 +112,7 @@ namespace The_Golden_Chicory
             Stage.player.scanForInteraction();
             //Set the quests
             QuestManager.getInstance().quests[QuestManager.QUEST1].activateQuest();
+
         }
     }
 }
