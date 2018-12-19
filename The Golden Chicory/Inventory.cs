@@ -11,7 +11,7 @@ namespace The_Golden_Chicory
     public class Inventory : Entity
     {
         private static Inventory instance;
-        private List<Entity> items;
+        private List<Entity> items;                     
 
         private Inventory()
         {

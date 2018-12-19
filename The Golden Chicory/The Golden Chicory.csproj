@@ -60,10 +60,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Characters\NPC.cs" />
     <Compile Include="Events\InteractionEvent.cs" />
     <Compile Include="Events\MovedEvent.cs" />
     <Compile Include="Factories\ItemFactory.cs" />
     <Compile Include="Factories\StructureFactory.cs" />
+    <Compile Include="Interactions\FakeInspect.cs" />
     <Compile Include="Interactions\Inspect.cs" />
     <Compile Include="Interactions\OpenClose.cs" />
     <Compile Include="Interactions\PickUp.cs" />
@@ -83,6 +85,8 @@
     <Compile Include="Factories\CaseFactory.cs" />
     <Compile Include="Characters\Character.cs" />
     <Compile Include="Entity.cs" />
+    <Compile Include="Quests\Quest.cs" />
+    <Compile Include="Quests\QuestManager.cs" />
     <Compile Include="Registrator.cs" />
     <Compile Include="Spawner.cs" />
     <Compile Include="Structures\Door.cs" />

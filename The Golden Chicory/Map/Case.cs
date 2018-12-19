@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Map
 {
-    class Case
+    public class Case
     {
         public int x { get; set; }
         public int y { get; set; }

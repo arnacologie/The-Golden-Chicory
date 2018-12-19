@@ -24,6 +24,7 @@ namespace The_Golden_Chicory.Interactions
             base.trigger(interactor);
             Inventory.getInstance().addItem(interactible);
             Stage.getInstance().MATRIX[interactible.x, interactible.y].onThis = Stage.getInstance().structureFactory.createStructure(StructureType.Floor);
+            Stage.interactionTriggeredOutput.Add(interactible.name + " picked up!");
         }
 
     }

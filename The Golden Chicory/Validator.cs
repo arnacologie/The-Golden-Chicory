@@ -23,8 +23,10 @@ namespace The_Golden_Chicory
          
         public static bool isCaseValidForMovement(int x, int y)
         {
-            return (x >= 0 && x < Stage.MATRIX_SIZE && y >= 0 && y < Stage.MATRIX_SIZE && (
-                Stage.getInstance().MATRIX[x, y].onThis.GetType() == typeof(Floor)) || isDoorOpened(x, y));
+            if (!(x >= 0 && x < Stage.MATRIX_SIZE && y >= 0 && y < Stage.MATRIX_SIZE))
+                return false;
+
+            return Stage.getInstance().MATRIX[x, y].onThis.GetType() == typeof(Floor) || isDoorOpened(x, y);
         }
 
         public static bool isCaseValid(int x, int y)

@@ -10,7 +10,7 @@ namespace Factories
 {
     public class ItemFactory
     {
-        public enum ItemType { SimpleKey, GoldenKey }
+        public enum ItemType { StudentCard, GoldenKey }
 
         public ItemType itemType;
 
@@ -18,8 +18,8 @@ namespace Factories
         {
             switch (itemType)
             {
-                case ItemType.SimpleKey:
-                    return new Key("Simple Key");
+                case ItemType.StudentCard:
+                    return new Key("Student Card");
                 case ItemType.GoldenKey:
                     return new Key("Golden Key");
                 default:

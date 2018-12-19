@@ -10,7 +10,8 @@ using System.Threading.Tasks;
 
 namespace The_Golden_Chicory
 {
-    class Stage
+    //Singleton
+    public class Stage
     {
         private static Stage instance;
         public static readonly int MATRIX_SIZE = 10;
@@ -21,6 +22,7 @@ namespace The_Golden_Chicory
         public ItemFactory itemFactory { get; set; }
         public static Player player { get; set; }
         public static List<string> debugOutput;
+        public static List<string> questOutput;
         public static List<string> closeInteractionsOutput;
         public static List<string> facingInteractionOutput;
         public static List<string> interactionTriggeredOutput;
@@ -41,6 +43,7 @@ namespace The_Golden_Chicory
             facingInteractionOutput = new List<string>();
             closeInteractionsOutput = new List<string>();
             interactionTriggeredOutput = new List<string>();
+            questOutput = new List<string>();
         }
 
         public static Stage getInstance()
@@ -115,6 +118,16 @@ namespace The_Golden_Chicory
                 Console.WriteLine(interactionTriggeredDetail);
             }
             interactionTriggeredOutput.Clear();
+        }
+
+        public static void printQuestOuput()
+        {
+            //Console.WriteLine("Quest Ouput: ");
+            foreach (string questOutputDetail in questOutput)
+            {
+                Console.WriteLine(questOutputDetail);
+            }
+            questOutput.Clear();
         }
     }
 }

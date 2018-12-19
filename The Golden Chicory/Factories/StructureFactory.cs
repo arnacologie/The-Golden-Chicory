@@ -10,7 +10,7 @@ namespace Factories
 {
     public class StructureFactory
     {
-        public enum StructureType {DoorLocked, DoorUnlocked, Floor, Stairs, Wall}
+        public enum StructureType {DoorLocked, DoorUnlocked, DormDoor, Floor, Stairs, Wall}
 
         public StructureType structureType;
 
@@ -19,9 +19,11 @@ namespace Factories
             switch (structureType)
             {
                 case StructureType.DoorUnlocked:
-                    return new Door(false, false);
+                    return new Door(false, false, false);
                 case StructureType.DoorLocked:
-                    return new Door(true, false);
+                    return new Door(true, false, false);
+                case StructureType.DormDoor:
+                    return new Door(true, false, true);
                 case StructureType.Floor:
                     return new Floor();
                 case StructureType.Stairs:

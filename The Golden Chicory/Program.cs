@@ -16,7 +16,8 @@ namespace The_Golden_Chicory
             Stage.getInstance().initConsole();
             Stage.getInstance().initMATRIX();
 
-            Spawner.spawnLevel1();
+            //Spawner.spawnLevel1();
+            Spawner.spawnOutside();
 
             Stage.getInstance().showMATRIX();
             Console.WriteLine(Stage.getInstance().MATRIX[0, 0].onThis.name);
@@ -25,6 +26,7 @@ namespace The_Golden_Chicory
             while (PlayerTurn)
             {
                 //Stage.player.scanForInteraction();
+                Stage.printQuestOuput();
                 Stage.player.action();
                 Stage.printDebug();
                 Stage.printFacingInteractions();

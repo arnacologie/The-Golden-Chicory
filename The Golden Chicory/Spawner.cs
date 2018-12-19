@@ -7,11 +7,13 @@ using static Factories.StructureFactory;
 using static Factories.ItemFactory;
 using Structures;
 using Items;
+using Quests;
 
 namespace The_Golden_Chicory
 {
     public static class Spawner
     {
+        public static bool alreadySpawnOnce = false;
         public static bool spawnEntity(int x, int y, Entity entity)
         {
             if (!Validator.isCaseEmpty(x, y))
@@ -58,7 +60,7 @@ namespace The_Golden_Chicory
             {
                 spawnEntity(4, y, Stage.getInstance().structureFactory.createStructure(StructureType.Wall));
             }
-            spawnEntity(2, 8, Stage.getInstance().itemFactory.createItem(ItemType.SimpleKey));
+            spawnEntity(2, 8, Stage.getInstance().itemFactory.createItem(ItemType.StudentCard));
             //register door in key
             Registrator.doorInKey((Door)Stage.getInstance().MATRIX[5, 4].onThis, (Key)Stage.getInstance().MATRIX[2, 8].onThis);
             //bottom row
@@ -68,6 +70,45 @@ namespace The_Golden_Chicory
             }
             spawnEntity(1, 1, Stage.player);
             Stage.player.scanForInteraction();
+        }
+
+        public static void spawnOutside()
+        {
+            //top row
+            for (int x = 0; x < Stage.MATRIX_SIZE; x++)
+            {
+                spawnEntity(x, 0, Stage.getInstance().structureFactory.createStructure(StructureType.Wall));
+            }
+            //left row
+            for (int y = 1; y < 9; y++)
+            {
+                if(y==7) spawnEntity(1, y, Stage.getInstance().structureFactory.createStructure(StructureType.DormDoor));
+                spawnEntity(0, y, Stage.getInstance().structureFactory.createStructure(StructureType.Wall));
+            }
+            for (int y = 1; y<7; y++)
+            {
+                spawnEntity(1, y, Stage.getInstance().structureFactory.createStructure(StructureType.Wall));
+            }
+            //right row
+            for (int y = 1; y<9; y++)
+            {
+                if(y == 2 || y == 3 || y == 4)
+                    spawnEntity(9, y, Stage.getInstance().structureFactory.createStructure(StructureType.DoorLocked));
+                spawnEntity(9, y, Stage.getInstance().structureFactory.createStructure(StructureType.Wall));
+            }
+            //other cases
+            for (int x = 1; x < 10; x++)
+            {
+                if (x == 6 || x == 7) continue;
+                spawnEntity(x, 8, Stage.getInstance().structureFactory.createStructure(StructureType.Wall));
+            }
+            //register door in key
+            //Registrator.doorInKey((Door)Stage.getInstance().MATRIX[5, 4].onThis, (Key)Stage.getInstance().MATRIX[2, 8].onThis);
+            //Configure the player 
+            spawnEntity(0,9, Stage.player);
+            Stage.player.scanForInteraction();
+            //Set the quests
+            QuestManager.getInstance().quests[QuestManager.QUEST1].activateQuest();
         }
     }
 }

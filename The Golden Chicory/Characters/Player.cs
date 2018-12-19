@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using static Factories.StructureFactory;
 using Interactions;
 using Structures;
+using Items;
 
 namespace Characters
 {
@@ -23,7 +24,7 @@ namespace Characters
         public Dictionary<string, int[]> closeCases;
         public Tuple<string, int[]> facingCase;
 
-        public Player(int x, int y) : base()
+        public Player(int x, int y)
         {
             this.x = x;
             this.y = y;
@@ -70,6 +71,7 @@ namespace Characters
                     return interact(3);
                 case ConsoleKey.D4:
                     return interact(4);
+                    //TODO Add Tab to showInventory
                 default:
                     Stage.getInstance().showMATRIX();
                     Console.WriteLine("Error WRONG KEY {0} {1} (Z,Q,S,D,↑,←,↓,→)", Stage.getFunctionName(), GetType().Name);
@@ -112,7 +114,9 @@ namespace Characters
             {
                 symbol = symbolDirection;
                 Stage.getInstance().showMATRIX();
-                Console.WriteLine("{0} {1} called, FAIL (Collision avec {2})", Stage.getFunctionName(), GetType().Name, Stage.getInstance().MATRIX[x, y].onThis.name);
+                if(x >= 0 && x < Stage.MATRIX_SIZE && y >= 0 && y < Stage.MATRIX_SIZE)
+                    Console.WriteLine("{0} {1} called, FAIL (Collision avec {2})", Stage.getFunctionName(), GetType().Name, checkMovement(x, y), Stage.getInstance().MATRIX[x, y].onThis.name);
+                else Console.WriteLine("{0} {1} called, FAIL (It's the void down here!)", Stage.getFunctionName(), GetType().Name, checkMovement(x, y));
                 initFacingCase();
                 return false;
             }
@@ -244,6 +248,7 @@ namespace Characters
         private bool useItemInventory()
         {
             interactWithInventory();
+            Stage.getInstance().showMATRIX();
             return false;
         }
 
@@ -253,7 +258,8 @@ namespace Characters
             {
                 if (facingCase != null)
                 {
-                    if (Stage.getInstance().MATRIX[facingCase.Item2[0], facingCase.Item2[1]].onThis.GetType() == typeof(Door))
+                    if (Stage.getInstance().MATRIX[facingCase.Item2[0], facingCase.Item2[1]].onThis.GetType() == typeof(Door) &&
+                        Inventory.getInstance().getItems().OfType<Key>().Any())
                     {
                         Door door = (Door)Stage.getInstance().MATRIX[facingCase.Item2[0], facingCase.Item2[1]].onThis;
                         if (door.isLocked)
@@ -262,7 +268,7 @@ namespace Characters
                             Stage.interactionTriggeredOutput.Add("I unlocked the door with the " + door.name);
                         }
                         else
-                            Stage.interactionTriggeredOutput.Add("The door is not locked");
+                            Stage.interactionTriggeredOutput.Add("The door is unlocked");
                     }
                     else
                         Stage.interactionTriggeredOutput.Add("I don't have the appropriate item");

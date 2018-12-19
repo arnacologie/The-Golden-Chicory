@@ -19,26 +19,36 @@ namespace Structures
         public bool isOpen { get; set; }
         public string symbolClosed { get; set; }
         public string symbolOpened { get; set; }
+        public bool isSpecial;
 
-        public Door(bool isLocked, bool isOpen) : base()
+        public Door(bool isLocked, bool isOpen, bool special) : base()
         {
             name = "Door";
             description = "Hmm, this is a door";
-            symbolOpened = "|";
-            symbolClosed = "_";
+            symbolOpened = "_";
+            symbolClosed = "|";
             if (isOpen) symbol = symbolOpened;
             else symbol = symbolClosed;
             this.isLocked = isLocked;
             this.isOpen = isOpen;
             isInteractible = true;
-            OpenClose openClose = new OpenClose(this);
-            openClose.registerObserver(this);
-            interactions.Add(openClose);
+            if (special)
+            {
+                interactions.Add(new FakeInspect(this));
+                isSpecial = true;
+            }
+            else
+            {
+                OpenClose openClose = new OpenClose(this);
+                openClose.registerObserver(this);
+                interactions.Add(openClose);
+                isSpecial = false;
+            }
         }
 
-        public void update(bool special)
+        public void update(bool fromKey)
         {
-            if (!special)
+            if (!fromKey && !isSpecial)
             {
                 if (symbol.Equals(symbolOpened))
                 {
@@ -50,10 +60,6 @@ namespace Structures
                     symbol = symbolOpened;
                     isOpen = true;
                 }
-            }
-            else
-            {
-
             }
         }
     }
