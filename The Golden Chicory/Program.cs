@@ -1,4 +1,5 @@
 ﻿using Characters;
+using Structures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,8 +18,8 @@ namespace The_Golden_Chicory
             Stage.getInstance().initMATRIX();
 
             //Spawner.spawnFirstFloor();
-            Spawner.spawnOutside();
-            //Spawner.spawnForthFloor();
+            //Spawner.spawnOutside();
+            Spawner.spawnForthFloor();
 
             Stage.getInstance().showMATRIX();
             //Console.WriteLine(Stage.getInstance().MATRIX[0, 0].onThis.name);

@@ -46,7 +46,6 @@ namespace Map
                     aSCIICaseRow.Clear();
                     aSCIICaseRow.Add(aSCIICase);
                 }
-                
                 positionInRow++;
             }
         }
@@ -69,7 +68,32 @@ namespace Map
                         Console.Write(aSCIICase.leftElement + " ");
                         break;
                     case 1:
-                        Console.Write(aSCIICase.centralElement + " ");
+                        int count = 0;
+                        foreach (char c in aSCIICase.centralElement)
+                        {
+                            if(count == 2)
+                            {
+                                if( c =='±' || c == '↑' || c == '←' || c == '→' || c == '↓' || c == '≡' )
+                                    Console.ForegroundColor = ConsoleColor.Green;
+                                else if (c == '■')
+                                    Console.ForegroundColor = ConsoleColor.Yellow;
+                                else if (c == 'ß' || c== '▀' )
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                else if (c == '_' || c == '|')
+                                    Console.ForegroundColor = ConsoleColor.Magenta;
+                                else if (c == 'ß')
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                else if (c == '¯')
+                                    Console.ForegroundColor = ConsoleColor.Gray;
+                                else if (c == '¤')
+                                    Console.ForegroundColor = ConsoleColor.White;
+                                Console.Write(c);
+                                Console.ForegroundColor = ConsoleColor.Blue;
+                            }
+                            else Console.Write(c);
+                            count++;
+                        }
+                        Console.Write(" ");
                         break;
                     case 2:
                         Console.Write(aSCIICase.rightElement + " ");

@@ -31,7 +31,7 @@ namespace Quests
             quests.Add(quest1);
             quests.Add(quest2);
             quests.Add(quest3);
-            quests.Add(quest3);
+            quests.Add(quest4);
         }
 
         public static QuestManager getInstance()

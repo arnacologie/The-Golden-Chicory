@@ -12,6 +12,7 @@ namespace Characters
     {
         public string dialog1;
         public string dialog2;
+        public static string Abdel = "to Abdel";
 
         public NPC(string name, string dialog1, string dialog2)
         {

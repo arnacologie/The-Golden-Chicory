@@ -79,9 +79,12 @@ namespace Quests
 
         public void activateQuest()
         {
-            Stage.questOutput.Add("[ New Quest ! ] "+name);
-            isEnabled = true;
-            status = IN_PROGRESS;
+            if (status == PENDING)
+            {
+                Stage.questOutput.Add("[ New Quest ! ] " + name);
+                isEnabled = true;
+                status = IN_PROGRESS;
+            }
         }
 
         public Dictionary<EventProgressType, int> getTasksToComplete()

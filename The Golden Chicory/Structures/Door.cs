@@ -77,12 +77,8 @@ namespace Structures
                     if (name.Equals(campusDoorName))
                     {
                         Stage.getInstance().initMATRIXToSpawnNewLevel();
-                        //Stage.getInstance().showMATRIX();
-                        //TODO Caution readline between level spawns
-                        Console.ReadLine();
                         Spawner.spawnFirstFloor();
                         Stage.currentLevel = 1;
-                        //Stage.getInstance().showMATRIX();
                     }
                 }
                 
