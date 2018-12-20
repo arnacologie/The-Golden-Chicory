@@ -15,7 +15,7 @@ namespace Student_Ennemies
         public DevStudent(int x, int y, string name, double health, bool isDroppingLoot) : base(x, y, name, health, isDroppingLoot)
         {
             description = "This is a " + name;
-            skills.Add(new Skill("Headbutt", name + " use Headbutt", 1, SkillType.Natural));
+            skills.Add(new Skill("Headbutt", name + " use Headbutt", 1, SkillType.Natural, this));
             symbol = "ß";
             interactions.Add(new FightAnnoyingStudent(this));
         }

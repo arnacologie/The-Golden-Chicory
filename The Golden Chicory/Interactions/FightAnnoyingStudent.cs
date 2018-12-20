@@ -24,8 +24,12 @@ namespace Interactions
         public override void trigger(Entity interactor)
         {
             base.trigger(interactor);
-            Stage.interactionTriggeredOutput.Add("An "+interactible.name+" is blocking the to the 4th floor!");
+            Stage.interactionTriggeredOutput.Add("An "+interactible.name+" is blocking the 4th floor!");
             Stage.interactionTriggeredOutput.Add("He won't move ! It's time to fight !");
+            Stage.interactionTriggeredOutput.Add("Press Enter to enter in COMBAT");
+            Stage.getInstance().showMATRIX();
+            Stage.printInteractionTriggered();
+            Console.ReadLine();
             if (interactible.GetType() == typeof(AnnoyingStudent))
             {
                 Stage.currentEnemy = (StudentEnemy)interactible;

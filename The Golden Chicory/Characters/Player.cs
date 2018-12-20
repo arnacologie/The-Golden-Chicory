@@ -41,11 +41,12 @@ namespace Characters
             symbolRight = "→";
             symbolDown = "↓";
             health = 10;
+            totalHealth = health;
             isInteractible = true;
             behavior = Behavior.Aggressive;
             isAlive = true;
             skills = new List<Skill>();
-            skills.Add(new Skill(Skill.GarbageDevLanguageName, "[All] DMG 2 , [Dev Student] DMG 0", 2, SkillType.Natural));
+            skills.Add(new Skill(Skill.GarbageDevLanguageName, "[All] DMG 2 , [Dev Student] DMG 0", 2, SkillType.Natural, this));
         }
 
         public bool action()
@@ -81,7 +82,7 @@ namespace Characters
                     //TODO Add Tab to showInventory
                 default:
                     Stage.getInstance().showMATRIX();
-                    Console.WriteLine("Error WRONG KEY {0} {1} (Z,Q,S,D,↑,←,↓,→,1,2,3,4)", Stage.getFunctionName(), GetType().Name);
+                    //Console.WriteLine("Error WRONG KEY {0} {1} (Z,Q,S,D,↑,←,↓,→,1,2,3,4)", Stage.getFunctionName(), GetType().Name);
                     return false;
             }
         }
@@ -113,7 +114,7 @@ namespace Characters
                 this.y = y;
                 symbol = symbolDirection;
                 Stage.getInstance().showMATRIX();
-                Console.WriteLine("{0} {1} called, SUCCESS {2}{3}", Stage.getFunctionName(), GetType().Name, x, y);
+                //Console.WriteLine("{0} {1} called, SUCCESS {2}{3}", Stage.getFunctionName(), GetType().Name, x, y);
                 scanForInteraction();
                 return true;
             }
@@ -121,9 +122,9 @@ namespace Characters
             {
                 symbol = symbolDirection;
                 Stage.getInstance().showMATRIX();
-                if(x >= 0 && x < Stage.MATRIX_SIZE && y >= 0 && y < Stage.MATRIX_SIZE)
-                    Console.WriteLine("{0} {1} called, FAIL (Collision avec {2})", Stage.getFunctionName(), GetType().Name, Stage.getInstance().MATRIX[x, y].onThis.name);
-                else Console.WriteLine("{0} {1} called, FAIL (It's the void down here!)", Stage.getFunctionName(), GetType().Name, checkMovement(x, y));
+                //if(x >= 0 && x < Stage.MATRIX_SIZE && y >= 0 && y < Stage.MATRIX_SIZE)
+                //    Console.WriteLine("{0} {1} called, FAIL (Collision avec {2})", Stage.getFunctionName(), GetType().Name, Stage.getInstance().MATRIX[x, y].onThis.name);
+                //else Console.WriteLine("{0} {1} called, FAIL (It's the void down here!)", Stage.getFunctionName(), GetType().Name, checkMovement(x, y));
                 initFacingCase();
                 return false;
             }
@@ -142,7 +143,7 @@ namespace Characters
         {
             symbol = symbolDirection;
             Stage.getInstance().showMATRIX();
-            Console.WriteLine("{0} {1} called, SUCCESS", Stage.getFunctionName(), this.GetType().Name);
+            //Console.WriteLine("{0} {1} called, SUCCESS", Stage.getFunctionName(), this.GetType().Name);
             initFacingCase();
             return true;
         }
@@ -159,25 +160,25 @@ namespace Characters
                         //TODO finir 
                         Stage.getInstance().MATRIX[facingCase.Item2[0], facingCase.Item2[1]].onThis.interactions[0].trigger(this);
                         Stage.getInstance().showMATRIX();
-                        Console.WriteLine("{0} {1} called, SUCCESS", Stage.getFunctionName(), this.GetType().Name);
+                        //Console.WriteLine("{0} {1} called, SUCCESS", Stage.getFunctionName(), this.GetType().Name);
                         return true;
                     case 2:
                         Stage.getInstance().MATRIX[facingCase.Item2[0], facingCase.Item2[1]].onThis.interactions[1].trigger(this);
                         Stage.getInstance().showMATRIX();
-                        Console.WriteLine("{0} {1} called, SUCCESS", Stage.getFunctionName(), this.GetType().Name);
+                        //Console.WriteLine("{0} {1} called, SUCCESS", Stage.getFunctionName(), this.GetType().Name);
                         return true;
                     case 3:
                         Stage.getInstance().MATRIX[facingCase.Item2[0], facingCase.Item2[1]].onThis.interactions[2].trigger(this);
                         Stage.getInstance().showMATRIX();
-                        Console.WriteLine("{0} {1} called, SUCCESS", Stage.getFunctionName(), this.GetType().Name);
+                        //Console.WriteLine("{0} {1} called, SUCCESS", Stage.getFunctionName(), this.GetType().Name);
                         return true;
                     case 4:
                         Stage.getInstance().MATRIX[facingCase.Item2[0], facingCase.Item2[1]].onThis.interactions[3].trigger(this);
                         Stage.getInstance().showMATRIX();
-                        Console.WriteLine("{0} {1} called, SUCCESS", Stage.getFunctionName(), this.GetType().Name);
+                        //Console.WriteLine("{0} {1} called, SUCCESS", Stage.getFunctionName(), this.GetType().Name);
                         return true;
                     default:
-                        Stage.debugOutput.Add(string.Format("Erreur WRONG KEY (1-4) {0} {1}", Stage.getFunctionName(), GetType().Name));
+                        //Stage.debugOutput.Add(string.Format("Erreur WRONG KEY (1-4) {0} {1}", Stage.getFunctionName(), GetType().Name));
                         Stage.getInstance().showMATRIX();
                         return false;
                 }
@@ -298,6 +299,8 @@ namespace Characters
         {
             Stage.availableCombatOptionsOutput.Add("Fight [1]");
             Stage.availableCombatOptionsOutput.Add("Use Item [2]");
+            Stage.getInstance().showMATRIX();
+            Stage.printAvailableCombatOptionsOutput();
             switch (Console.ReadKey().Key)
             {
                 case ConsoleKey.D1:
@@ -316,6 +319,8 @@ namespace Characters
             Stage.availableCombatOptionsOutput.Add("Show attack(s) [1]");
             Stage.availableCombatOptionsOutput.Add("Show skills(s) [2]");
             Stage.availableCombatOptionsOutput.Add("Go back [BACKSPACE]");
+            Stage.getInstance().showMATRIX();
+            Stage.printAvailableCombatOptionsOutput();
             switch (Console.ReadKey().Key)
             {
                 case ConsoleKey.D1:
@@ -326,8 +331,9 @@ namespace Characters
                     return combatAction();
                 default:
                     Stage.getInstance().showMATRIX();
-                    Console.WriteLine("Error WRONG KEY {0} {1} (1,2)", Stage.getFunctionName(), GetType().Name);
-                    return false;
+                    //Console.WriteLine("Error WRONG KEY {0} {1} (1,2)", Stage.getFunctionName(), GetType().Name);
+                    fightOptions();
+                    return true;
             }
         }
 
@@ -340,6 +346,8 @@ namespace Characters
                     Stage.availableCombatOptionsOutput.Add(string.Format("{0} : {1} [{2}]", skill.name, skill.description, skills.IndexOf(skill) + 1));
             }
             Stage.availableCombatOptionsOutput.Add("Go back [BACKSPACE]");
+            Stage.getInstance().showMATRIX();
+            Stage.printAvailableCombatOptionsOutput();
             switch (Console.ReadKey().Key)
             {
                 case ConsoleKey.D1:
@@ -348,59 +356,73 @@ namespace Characters
                         skills[0].useSkill(Stage.currentEnemy);
                         return true;
                     }
-                    return false;
+                    getAvailableAttackOptions();
+                    return true;
                 case ConsoleKey.D2:
                     if (checkAttackOption(2))
                     {
                         skills[1].useSkill(Stage.currentEnemy);
                         return true;
                     }
-                    return false;
+                    getAvailableAttackOptions();
+                    return true;
                 case ConsoleKey.D3:
                     if (checkAttackOption(3))
                     {
                         skills[2].useSkill(Stage.currentEnemy);
                         return true;
                     }
-                    return false;
+                    getAvailableAttackOptions();
+                    return true;
                 case ConsoleKey.D4:
                     if (checkAttackOption(4))
                     {
                         skills[3].useSkill(Stage.currentEnemy);
                         return true;
                     }
-                    return false;
+                    getAvailableAttackOptions();
+                    return true;
                 case ConsoleKey.D5:
                     if (checkAttackOption(5))
                     {
                         skills[4].useSkill(Stage.currentEnemy);
                         return true;
                     }
-                    return false;
+                    getAvailableAttackOptions();
+                    return true;
                 case ConsoleKey.D6:
                     if (checkAttackOption(6))
                     {
                         skills[5].useSkill(Stage.currentEnemy);
                         return true;
                     }
-                    return false;
+                    getAvailableAttackOptions();
+                    return true;
                 case ConsoleKey.Backspace:
                     return fightOptions();
                 default:
                     Stage.getInstance().showMATRIX();
-                    Console.WriteLine("Error WRONG KEY {0} {1} (1,2)", Stage.getFunctionName(), GetType().Name);
-                    return false;
+                    //Console.WriteLine("Error WRONG KEY {0} {1} (1,2)", Stage.getFunctionName(), GetType().Name);
+                    getAvailableAttackOptions();
+                    return true;
             }
         }
 
         public bool getAvailableSkillOptions()
         {
+            bool skillFound = false;
             foreach (Skill skill in skills)
             {
                 if (skill.skillType != SkillType.Natural)
+                {
                     Stage.availableCombatOptionsOutput.Add(string.Format("{0} : {1} [{2}]", skill.name, skill.description, skills.IndexOf(skill) + 1));
+                    skillFound = true;
+                }
             }
+            if(!skillFound) Stage.availableCombatOptionsOutput.Add("You haven't learn a skill yet");
             Stage.availableCombatOptionsOutput.Add("Go back [BACKSPACE]");
+            Stage.getInstance().showMATRIX();
+            Stage.printAvailableCombatOptionsOutput();
             switch (Console.ReadKey().Key)
             {
                 case ConsoleKey.D1:
@@ -409,48 +431,55 @@ namespace Characters
                         skills[0].useSkill(Stage.currentEnemy);
                         return true;
                     }
-                    return false;
+                    getAvailableSkillOptions();
+                    return true;
                 case ConsoleKey.D2:
                     if (checkSkillOption(2))
                     {
                         skills[1].useSkill(Stage.currentEnemy);
                         return true;
                     }
-                    return false;
+                    getAvailableSkillOptions();
+                    return true;
                 case ConsoleKey.D3:
                     if (checkSkillOption(3))
                     {
                         skills[2].useSkill(Stage.currentEnemy);
                         return true;
                     }
-                    return false;
+                    getAvailableSkillOptions();
+                    return true;
                 case ConsoleKey.D4:
                     if (checkSkillOption(4))
                     {
                         skills[3].useSkill(Stage.currentEnemy);
                         return true;
                     }
-                    return false;
+                    getAvailableSkillOptions();
+                    return true;
                 case ConsoleKey.D5:
                     if (checkSkillOption(5))
                     {
                         skills[4].useSkill(Stage.currentEnemy);
                         return true;
                     }
-                    return false;
+                    getAvailableSkillOptions();
+                    return true;
                 case ConsoleKey.D6:
                     if (checkSkillOption(6))
                     {
                         skills[5].useSkill(Stage.currentEnemy);
                         return true;
                     }
-                    return false;
+                    getAvailableSkillOptions();
+                    return true;
                 case ConsoleKey.Backspace:
                     return fightOptions();
                 default:
                     Stage.getInstance().showMATRIX();
-                    Console.WriteLine("Error WRONG KEY {0} {1} (1,2)", Stage.getFunctionName(), GetType().Name);
-                    return false;
+                    //Console.WriteLine("Error WRONG KEY {0} {1} (1,2)", Stage.getFunctionName(), GetType().Name);
+                    getAvailableSkillOptions();
+                    return true;
             }
         }
 
@@ -472,15 +501,26 @@ namespace Characters
             foreach (Skill skill in skills)
             {
                 if (skill.skillType == SkillType.Natural)
-                    continue;
-                count++;
+                    count++;
             }
             return value <= count;
         }
 
         public bool itemOptions()
         {
-            return true;
+            Stage.getInstance().showMATRIX();
+            Console.WriteLine("You don't have any consumable items\nGo back [BACKSPACE]");
+            switch (Console.ReadKey().Key)
+            {
+                case ConsoleKey.Backspace:
+                    combatAction();
+                    return true;
+                default:
+                    Stage.getInstance().showMATRIX();
+                    itemOptions();
+                    return true;
+            }
+            
         }
 
         public void learnNewSkill(Skill skill)

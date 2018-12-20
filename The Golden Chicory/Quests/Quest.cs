@@ -45,10 +45,10 @@ namespace Quests
                     stepsRemaningList[eventProgressType]++;
                     if (checkIfQuestCompleted())
                     {
-                        Stage.questOutput.Add("[Quest]" + name + "[COMPLETED]");
+                        Stage.questOutput.Add(" [ Quest ] " + name + " [ COMPLETED ] ");
                         return;
                     }
-                    Stage.questOutput.Add("[Quest]" + name + "[IN PROGRESS)]");
+                    Stage.questOutput.Add(" [ Quest ] " + name + " [ IN PROGRESS ] ");
                 }
             }
         }

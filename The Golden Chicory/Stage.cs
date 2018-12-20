@@ -2,6 +2,7 @@
 using Factories;
 using Map;
 using Quests;
+using Student_Ennemies;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -105,8 +106,8 @@ namespace The_Golden_Chicory
 
         public static void printDebug()
         {
-            Console.WriteLine("Debug:");
-            Console.WriteLine(debugOutput.Count);
+            //Console.WriteLine("Debug:");
+            //Console.WriteLine(debugOutput.Count);
             foreach (string debug in debugOutput)
             {
                 Console.WriteLine(debug);
@@ -116,7 +117,7 @@ namespace The_Golden_Chicory
 
         public static void printCloseInteractions()
         {
-            Console.WriteLine("Close Interactions: ");
+            //Console.WriteLine("Close Interactions: ");
             foreach (string interactionDetail in closeInteractionsOutput)
             {
                 Console.WriteLine(interactionDetail);
@@ -126,7 +127,7 @@ namespace The_Golden_Chicory
 
         public static void printFacingInteractions()
         {
-            Console.WriteLine("Facing interactions: ");
+            //Console.WriteLine("Facing interactions: ");
             foreach (string facingInteractionDetail in facingInteractionOutput)
             {
                 Console.WriteLine(facingInteractionDetail);
@@ -136,10 +137,10 @@ namespace The_Golden_Chicory
 
         public static void printInteractionTriggered()
         {
-            Console.WriteLine("Interaction Triggered: ");
+            //Console.WriteLine("Interaction Triggered: ");
             foreach (string interactionTriggeredDetail in interactionTriggeredOutput)
             {
-                Console.WriteLine(interactionTriggeredDetail);
+                Console.WriteLine(interactionTriggeredDetail+"\n");
             }
             interactionTriggeredOutput.Clear();
         }
@@ -158,7 +159,7 @@ namespace The_Golden_Chicory
         {
             foreach (string inCombatOuputDetail in inCombatOuput)
             {
-                Console.Write(inCombatOuputDetail);
+                Console.Write(inCombatOuputDetail+"\n");
             }
             inCombatOuput.Clear();
         }
@@ -167,12 +168,12 @@ namespace The_Golden_Chicory
         {
             foreach (string availableCombatOptionsOutputDetail in availableCombatOptionsOutput)
             {
-                Console.Write(availableCombatOptionsOutputDetail);
+                Console.Write(availableCombatOptionsOutputDetail+"\n");
             }
             availableCombatOptionsOutput.Clear();
         }
 
-        public static void checkDeath()
+        public static bool checkDeath()
         {
             if(player.health<=0)
             {
@@ -183,20 +184,34 @@ namespace The_Golden_Chicory
                         Stage.getInstance().initMATRIXToSpawnNewLevel();
                         Console.ReadLine();
                         Spawner.spawnFirstFloor();
-                        break;
+                        return false;
                     default:
-                        break;
+                        return false;
                 }
-            }else if (currentEnemy.health <= 0)
+            }
+            else if (currentEnemy.health <= 0)
             {
-                Stage.currentEnemy.isAlive = false;
-                Stage.currentEnemy = null;
+                currentEnemy.isAlive = false;
                 QuestManager.getInstance().notify(EventProgressType.StudentEnemyKilled);
                 if (currentEnemy.isDroppingLoot)
                 {
                     currentEnemy.dropLoot();
                 }
+                currentEnemy.isInteractible = false;
+                inCombat = false;
+                Console.Write(currentEnemy.name+" is dead ! ");
+                return true;
             }
+            return false;
+        }
+
+        public static void waitBetweenTurns(bool nextEnemyTurn)
+        {
+            if(nextEnemyTurn)
+                Console.WriteLine("Press Enter for Enemy Turn");
+            else
+                Console.WriteLine("Press Enter to fight back !");
+            Console.ReadLine();
         }
     }
 }

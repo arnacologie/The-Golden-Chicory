@@ -9,6 +9,7 @@ using Structures;
 using Items;
 using Quests;
 using static Factories.StudentEnemyFactory;
+using static Quests.QuestManager;
 
 namespace The_Golden_Chicory
 {
@@ -27,7 +28,7 @@ namespace The_Golden_Chicory
                 entity.x = x;
                 entity.y = y;
                 Stage.getInstance().MATRIX[x, y].onThis = entity;
-                Console.WriteLine("{0} Spawn", entity.name);
+                Console.WriteLine("{0} appeared !", entity.name);
                 return true;
             }
         }
@@ -221,7 +222,8 @@ namespace The_Golden_Chicory
             spawnEntity(1, 3, Stage.player);
             Stage.player.scanForInteraction();
             //Set the quests
-            QuestManager.getInstance().quests[QuestManager.QUEST2].activateQuest();
+            //QuestManager.getInstance().quests[QuestManager.QUEST2].activateQuest();
+            QuestManager.getInstance().notify(EventProgressType.ForthFloorReached);
 
         }
     }

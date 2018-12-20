@@ -12,6 +12,7 @@ namespace Characters
     {
         public enum Behavior {Pacific, Aggressive};
         public double health { get; set; }
+        public double totalHealth { get; set; }
         public Behavior behavior;
         public bool isAlive;
         public List<Skill> skills;
@@ -19,6 +20,7 @@ namespace Characters
         public void takeDamage(double damage)
         {
             health -= damage;
+            if (health < 0) health = 0;
         }
     }
 }

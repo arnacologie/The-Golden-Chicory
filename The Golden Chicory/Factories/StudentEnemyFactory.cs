@@ -17,7 +17,7 @@ namespace Factories
             switch (studentEnemyType)
             {
                 case StudentEnemyType.AnnoyingStudent:
-                    return new AnnoyingStudent(0,0,"Annoying Student", 10, false);
+                    return new AnnoyingStudent(0,0,"Annoying Student", 5, true);
                 default:
                     return null;
             }

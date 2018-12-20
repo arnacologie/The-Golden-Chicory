@@ -20,7 +20,6 @@ namespace Interactions
         public override void trigger(Entity interactor)
         {
             Stage.getInstance().initMATRIXToSpawnNewLevel();
-            Console.ReadLine();
             Spawner.spawnForthFloor();
         }
     }

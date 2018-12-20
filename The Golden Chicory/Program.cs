@@ -20,7 +20,7 @@ namespace The_Golden_Chicory
             //Spawner.spawnOutside();
 
             Stage.getInstance().showMATRIX();
-            Console.WriteLine(Stage.getInstance().MATRIX[0, 0].onThis.name);
+            //Console.WriteLine(Stage.getInstance().MATRIX[0, 0].onThis.name);
             Stage.printDebug();
             Stage.printCloseInteractions();
             while (true)
@@ -39,11 +39,17 @@ namespace The_Golden_Chicory
                     Stage.printDebug();
                     Stage.printQuestOuput();
                     Stage.player.combatAction();
-                    Stage.currentEnemy.attack(Stage.player);
-                    Stage.printInCombatOutput();
-                    Stage.checkDeath();
+                    Stage.waitBetweenTurns(true);
+                    if (Stage.checkDeath())
+                        Console.WriteLine("YOU WIN !");
+                    else
+                    {
+                        Stage.currentEnemy.attack(Stage.player);
+                        Stage.waitBetweenTurns(false);
+                        Stage.checkDeath();
+                    }
+                    
                 }
-                Stage.printInCombatOutput();
             }
             
         }

@@ -23,6 +23,7 @@ namespace Characters
             this.name = name;
             behavior = Behavior.Aggressive;
             this.health = health;
+            totalHealth = health;
             skills = new List<Skill>();
             isAlive = true;
             this.isDroppingLoot = isDroppingLoot;

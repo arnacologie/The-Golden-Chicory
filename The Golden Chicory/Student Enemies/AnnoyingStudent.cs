@@ -1,5 +1,6 @@
 ﻿using Characters;
 using Interactions;
+using Items;
 using Skills;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace Student_Ennemies
         public AnnoyingStudent(int x, int y, string name, double health, bool isDroppingLoot) : base(x, y, name, health, isDroppingLoot)
         {
             description = "This is a " + name;
-            skills.Add(new Skill("Headbutt", name + " use Headbutt", 1, SkillType.Natural));
+            skills.Add(new Skill("Headbutt", name + " use Headbutt", 1, SkillType.Natural, this));
             symbol = "ß";
             interactions.Add(new FightAnnoyingStudent(this));
             isInteractible = true;
@@ -32,7 +33,12 @@ namespace Student_Ennemies
         public override void dropLoot()
         {
             Stage.getInstance().MATRIX[x, y].onThis = Stage.getInstance().structureFactory.createStructure(StructureType.Floor);
-            Spawner.spawnEntity(x, y, Stage.getInstance().itemFactory.createItem(ItemType.Bag));
+            if (!Bag.alreadySpawn)
+            {
+                Spawner.spawnEntity(x, y, Stage.getInstance().itemFactory.createItem(ItemType.Bag));
+                Bag.alreadySpawn = true;
+            }
+            
         }
     }
 }

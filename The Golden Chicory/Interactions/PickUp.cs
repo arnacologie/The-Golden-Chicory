@@ -25,10 +25,11 @@ namespace The_Golden_Chicory.Interactions
         public override void trigger(Entity interactor)
         {
             base.trigger(interactor);
-            if (interactible.GetType() == typeof(Weapon))
+            if (interactible.GetType() == typeof(Bag))
             {
-                Weapon weapon = (Weapon)interactible;
-                Stage.player.learnNewSkill(weapon.skill);
+                Bag bag = (Bag)interactible;
+                Stage.player.learnNewSkill(bag.skill);
+                Stage.interactionTriggeredOutput.Add("New Attack learned ! -> "+bag.skill.name);
             }
             else if (interactible.GetType() == typeof(Key) && interactible.name.Equals(Key.studentCardName))
             {

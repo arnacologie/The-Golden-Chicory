@@ -25,7 +25,7 @@ namespace Factories
                 case StructureType.DoorLockedHorizontal:
                     return new Door(false, true, false, false);
                 case StructureType.DormDoor:
-                    return new Door(false, true, false, true);
+                    return new Door(true, true, false, true);
                 case StructureType.Floor:
                     return new Floor();
                 case StructureType.FirstFloorStairs:
