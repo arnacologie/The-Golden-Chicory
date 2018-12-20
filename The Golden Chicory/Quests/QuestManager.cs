@@ -12,9 +12,11 @@ namespace Quests
     {
         private static QuestManager instance;
         public List<Quest> quests { get; set; }
-        public enum EventProgressType { AnnoyingStudentKilled, StudentEnemyKilled, ItemGivenToNPC, NPCTalked, ForthFloorReached, LocationReached, MachineTriggered, StudentCardPickedUp, CampusDoorwayOpened}
+        public enum EventProgressType { AnnoyingStudentKilled, BuyBoono, BuySoda, TabletSign, StudentEnemyKilled, ItemGivenToNPC, NPCTalked, ForthFloorReached, LocationReached, MachineTriggered, StudentCardPickedUp, CampusDoorwayOpened}
         public static readonly int QUEST1 = 0;
         public static readonly int QUEST2 = 1;
+        public static readonly int QUEST3 = 2;
+        public static readonly int QUEST4 = 3;
         private QuestManager()
         {
             quests = new List<Quest>();
@@ -22,8 +24,14 @@ namespace Quests
             quest1.addTask(EventProgressType.CampusDoorwayOpened, 1);
             Quest quest2 = new Quest("You're almost late ! Go to the 4th Floor whatever it takes !", EventProgressType.StudentEnemyKilled, 1);
             quest2.addTask(EventProgressType.ForthFloorReached, 1);
+            Quest quest3 = new Quest("Go sign in on the tablet ! ", EventProgressType.TabletSign, 1);
+            //TODO finish quest4
+            Quest quest4 = new Quest("Buy a Kander Boono for Abdel and a Soda for you!", EventProgressType.BuyBoono, 1);
+            quest4.addTask(EventProgressType.BuySoda, 1);
             quests.Add(quest1);
             quests.Add(quest2);
+            quests.Add(quest3);
+            quests.Add(quest3);
         }
 
         public static QuestManager getInstance()

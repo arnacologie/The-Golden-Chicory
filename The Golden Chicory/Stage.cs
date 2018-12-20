@@ -95,7 +95,7 @@ namespace The_Golden_Chicory
         {
             Console.OutputEncoding = Encoding.Unicode;
             Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WindowHeight = 40;
+            Console.WindowHeight = 33;
         }
 
         public void showMATRIX()

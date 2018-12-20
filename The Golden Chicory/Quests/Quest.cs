@@ -79,7 +79,7 @@ namespace Quests
 
         public void activateQuest()
         {
-            Stage.questOutput.Add("[New Quest !]"+name);
+            Stage.questOutput.Add("[ New Quest ! ] "+name);
             isEnabled = true;
             status = IN_PROGRESS;
         }

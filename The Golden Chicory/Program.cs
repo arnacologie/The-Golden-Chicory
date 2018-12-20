@@ -16,8 +16,9 @@ namespace The_Golden_Chicory
             Stage.getInstance().initConsole();
             Stage.getInstance().initMATRIX();
 
-            Spawner.spawnFirstFloor();
-            //Spawner.spawnOutside();
+            //Spawner.spawnFirstFloor();
+            Spawner.spawnOutside();
+            //Spawner.spawnForthFloor();
 
             Stage.getInstance().showMATRIX();
             //Console.WriteLine(Stage.getInstance().MATRIX[0, 0].onThis.name);

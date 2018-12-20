@@ -60,7 +60,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interactions\SignIn.cs" />
+    <Compile Include="Interactions\Talk.cs" />
     <Compile Include="Items\Bag.cs" />
+    <Compile Include="Structures\Tablet.cs" />
     <Compile Include="Student Enemies\DevStudent.cs" />
     <Compile Include="Characters\StudentEnemy.cs" />
     <Compile Include="Characters\NPC.cs" />

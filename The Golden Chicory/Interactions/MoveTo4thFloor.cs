@@ -19,8 +19,10 @@ namespace Interactions
 
         public override void trigger(Entity interactor)
         {
+            //Stage.interactionTriggeredOutput.Add("Press Enter to enter use the stairs");
             Stage.getInstance().initMATRIXToSpawnNewLevel();
             Spawner.spawnForthFloor();
+            Stage.currentLevel = 4;
         }
     }
 }

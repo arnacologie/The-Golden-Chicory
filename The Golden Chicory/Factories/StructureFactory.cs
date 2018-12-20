@@ -10,7 +10,7 @@ namespace Factories
 {
     public class StructureFactory
     {
-        public enum StructureType {DoorLockedVertical, DoorUnlockedVertical, DoorLockedHorizontal, DoorUnlockedHorizontal, DormDoor, Floor, FirstFloorStairs, Wall}
+        public enum StructureType {DoorLockedVertical, DoorUnlockedVertical, DoorLockedHorizontal, Tablet, DoorUnlockedHorizontal, DormDoor, Floor, FirstFloorStairs, Wall}
 
         public Structure createStructure(StructureType structureType)
         {
@@ -30,6 +30,8 @@ namespace Factories
                     return new Floor();
                 case StructureType.FirstFloorStairs:
                     return new Stairs(1);
+                case StructureType.Tablet:
+                    return new Tablet();
                 case StructureType.Wall:
                     return new Wall();
                 default:
